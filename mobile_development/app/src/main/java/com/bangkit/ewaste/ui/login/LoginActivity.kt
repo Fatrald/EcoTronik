@@ -25,7 +25,12 @@ class LoginActivity : AppCompatActivity() {
 
         setupViewModel()
         setupAction()
-        setupDefaultUserData()
+
+        val remember = binding.checkBox.isChecked
+
+        if (remember) {
+            setupDefaultUserData()
+        }
 
         binding.tvRegistration.setOnClickListener {
             RegistrationActivity.open(this)
@@ -47,12 +52,9 @@ class LoginActivity : AppCompatActivity() {
         binding.loginButton.setOnClickListener {
             val email = binding.emailEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
-            val remember = binding.checkBox.isChecked
 
-            if (remember) {
-                loginData = LoginRequest(email, password)
-                loginViewModel.setLoginData(loginData!!)
-            }
+            loginData = LoginRequest(email, password)
+            loginViewModel.setLoginData(loginData!!)
 
             val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(it.windowToken, 0)

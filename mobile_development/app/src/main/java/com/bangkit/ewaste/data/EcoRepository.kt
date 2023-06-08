@@ -4,12 +4,15 @@ import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.bangkit.ewaste.MainActivity
 import com.bangkit.ewaste.data.network.ApiService
 import com.bangkit.ewaste.data.response.user.LoginRequest
 import com.bangkit.ewaste.data.response.user.LoginResponse
 import com.bangkit.ewaste.data.response.user.RegistrationRequest
 import com.bangkit.ewaste.data.response.user.RegistrationResponse
+import com.bangkit.ewaste.data.response.user.UserResponse
 import com.bangkit.ewaste.ui.login.LoginActivity
 import com.bangkit.ewaste.utils.SharedPreferences
 import com.bangkit.ewaste.utils.showToast
@@ -19,6 +22,8 @@ import retrofit2.Response
 import com.google.gson.Gson
 
 class EcoRepository(private val context: Context, private val apiService: ApiService) {
+    private val _user = MutableLiveData<UserResponse>()
+    val user : LiveData<UserResponse> get() = _user
 
     fun registerUser(nama: String, email: String, password: String, confPassword: String, callback: (Boolean) -> Unit) {
         val registrationRequest = RegistrationRequest(nama, email, password, confPassword)
@@ -66,11 +71,10 @@ class EcoRepository(private val context: Context, private val apiService: ApiSer
     fun getLoginData() : LoginRequest? {
         val sharedPref = SharedPreferences.initPreference(context, "localPref")
         val loginData = sharedPref.getString("loginData", "")
-        val json = loginData
-        if (json.isNullOrEmpty()){
-            return null
+        return if (loginData.isNullOrEmpty()) {
+            null
         } else {
-            return Gson().fromJson(json, LoginRequest::class.java)
+            Gson().fromJson(loginData, LoginRequest::class.java)
         }
     }
 
@@ -78,5 +82,29 @@ class EcoRepository(private val context: Context, private val apiService: ApiSer
         SharedPreferences.logout(context)
         LoginActivity.open(context)
         context.showToast("Logout Success")
+    }
+
+    fun getUUID(): String {
+        val sharedPref = SharedPreferences.initPreference(context, "localPref")
+        val uuid = sharedPref.getString("token", "")
+        return uuid.toString()
+    }
+
+    fun getUserByUUID(email : String, password: String, uuid: String) {
+        val call = apiService.getUserByUUID(uuid)
+        call.enqueue(object : Callback<UserResponse> {
+            override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
+                if (response.isSuccessful) {
+                    loginUser(email, password)
+                    _user.value = response.body()
+                } else {
+                    Log.e(ContentValues.TAG, "onFailure: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                context.showToast("Data Gagal Dimuat, Periksa Koneksi Anda")
+            }
+        })
     }
 }

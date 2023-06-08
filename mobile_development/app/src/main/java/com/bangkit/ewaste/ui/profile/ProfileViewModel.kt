@@ -4,22 +4,27 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.bangkit.ewaste.data.EcoRepository
-import com.bangkit.ewaste.data.response.user.User
+import com.bangkit.ewaste.data.response.user.LoginRequest
+import java.util.UUID
 
 class ProfileViewModel(private val repository : EcoRepository) : ViewModel() {
+
+    val user = repository.user
+
     fun logoutUser() {
         repository.logoutUser()
     }
 
-    private val _user = MutableLiveData<User>().apply {
-        value = User(
-            "M. Fidyan Fatra Aldino",
-            "Jl. Abdul Wahab Gg. Nangka RT.06 RW.04, Kel. Sawangan Baru, Kec. Sawangan, Kota Depok, Jawa Barat",
-            "fatraaldino@gmail.com",
-//            "087700345684",
-//            "user"
-        )
+    fun getUUID() : String {
+        return repository.getUUID()
     }
-    val user: LiveData<User> = _user
+
+    fun getUserByUUID(email : String, password : String, uuid : String) {
+        repository.getUserByUUID(email, password, uuid)
+    }
+
+    fun getLoginData() : LoginRequest? {
+        return repository.getLoginData()
+    }
 
 }

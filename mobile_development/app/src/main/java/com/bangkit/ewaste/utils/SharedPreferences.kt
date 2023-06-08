@@ -20,6 +20,18 @@ object SharedPreferences {
             .apply()
     }
 
+    fun saveEmail(email : String, context : Context){
+        editorPref(context, "localPref")
+            .putString("email", email)
+            .apply()
+    }
+
+    fun savePassword(password : String, context : Context){
+        editorPref(context, "localPref")
+            .putString("password", password)
+            .apply()
+    }
+
     fun saveLoginUser(loginData : String, context : Context){
         editorPref(context, "localPref")
             .putString("loginData", loginData)

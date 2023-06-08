@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.bangkit.ewaste.data.EcoRepository
 import com.bangkit.ewaste.di.Injection
+import com.bangkit.ewaste.ui.home.HomeViewModel
 import com.bangkit.ewaste.ui.login.LoginViewModel
 import com.bangkit.ewaste.ui.post.PostWasteViewModel
 import com.bangkit.ewaste.ui.profile.ProfileViewModel
@@ -21,6 +22,9 @@ class EcoViewModelFactory(private val context : Context) : ViewModelProvider.Fac
             }
             modelClass.isAssignableFrom(RegistrationViewModel::class.java) -> {
                 RegistrationViewModel(Injection.provideRepository(context)) as T
+            }
+            modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
+                HomeViewModel(Injection.provideRepository(context)) as T
             }
             modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
                 ProfileViewModel(Injection.provideRepository(context)) as T

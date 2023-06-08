@@ -1,13 +1,24 @@
 package com.bangkit.ewaste.ui.home
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.bangkit.ewaste.data.EcoRepository
+import com.bangkit.ewaste.data.response.user.LoginRequest
+import com.bangkit.ewaste.data.response.user.UserResponse
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(private val repository: EcoRepository) : ViewModel() {
 
-    private val _name = MutableLiveData<String>().apply {
-        value = "M. Fidyan Fatra Aldino"
+    val user = repository.user
+
+    fun getUUID() : String {
+        return repository.getUUID()
     }
-    val name: LiveData<String> = _name
+
+    fun getUserByUUID(email : String, password : String, uuid : String) {
+        repository.getUserByUUID(email, password, uuid)
+    }
+
+    fun getLoginData() : LoginRequest? {
+        return repository.getLoginData()
+    }
 }

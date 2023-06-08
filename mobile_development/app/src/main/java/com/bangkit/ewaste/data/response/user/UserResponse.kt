@@ -5,17 +5,17 @@ import com.google.gson.annotations.SerializedName
 data class UserResponse(
 
 	@field:SerializedName("role")
-	val role: String,
+	val role: String? = null,
 
 	@field:SerializedName("nama")
-	val nama: String,
+	val nama: String? = null,
 
 	@field:SerializedName("jml_point")
-	val jmlPoint: Int,
+	val jmlPoint: Int? = null,
 
 	@field:SerializedName("uuid")
-	val uuid: String,
+	val uuid: String? = null,
 
 	@field:SerializedName("email")
-	val email: String
+	val email: String? = null
 )
