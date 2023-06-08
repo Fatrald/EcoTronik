@@ -8,7 +8,7 @@ class Injection {
     object Injection {
         fun provideRepository(context: Context): EcoRepository {
             val apiService = ApiConfig.getApiService(context)
-            return EcoRepository(apiService)
+            return EcoRepository(context,apiService)
         }
     }
 }
