@@ -19,12 +19,8 @@ class ProfileViewModel(private val repository : EcoRepository) : ViewModel() {
         return repository.getUUID()
     }
 
-    fun getUserByUUID(email : String, password : String, uuid : String) {
-        repository.getUserByUUID(email, password, uuid)
-    }
-
-    fun getLoginData() : LoginRequest? {
-        return repository.getLoginData()
+    fun getUserByUUID(uuid : String) {
+        repository.getUserByUUID(uuid)
     }
 
 }

@@ -16,7 +16,6 @@ class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
 
     private val binding get() = _binding!!
-    private var loginData : LoginRequest? = null
 
     private var mainActivity: MainActivity? = null
 
@@ -41,17 +40,15 @@ class ProfileFragment : Fragment() {
         }
 
         val uuid = viewModel.getUUID()
-        loginData = viewModel.getLoginData()
-        viewModel.getUserByUUID(loginData!!.email, loginData!!.password, uuid)
-
+        viewModel.getUserByUUID("ede675ab-dd46-4dc5-8f97-ed4f0eef60fd")
 
         viewModel.user.observe(viewLifecycleOwner){ userResponse ->
             binding.apply {
-                tvName.text = userResponse.nama
-                tvContentName.text = userResponse.nama
-//                tvContentAddress.text = userResponse.alamat
+                tvName.text = userResponse.nama.uppercase()
+                tvContentName.text = userResponse.nama.uppercase()
+                tvContentAddress.text = userResponse.alamat.uppercase()
                 tvContentEmail.text = userResponse.email
-//                tvContentTelp.text = userResponse.noTelp
+                tvContentTelp.text = userResponse.noTelp
             }
         }
 

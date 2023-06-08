@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bangkit.ewaste.R
-import com.bangkit.ewaste.data.response.user.LoginRequest
 import com.bangkit.ewaste.databinding.FragmentHomeBinding
 import com.bangkit.ewaste.ui.customviews.CustomDialogFragment
 import com.bangkit.ewaste.ui.form.FormActivity
@@ -17,7 +16,6 @@ import com.bangkit.ewaste.utils.EcoViewModelFactory
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
-    private var loginData : LoginRequest? = null
 
     private val binding get() = _binding!!
 
@@ -38,14 +36,15 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        DEFINE USER
+//        GET DATA PROFILE
         val uuid = viewModel.getUUID()
-        loginData = viewModel.getLoginData()
-        viewModel.getUserByUUID(loginData!!.email, loginData!!.password, uuid)
+        viewModel.getUserByUUID(uuid)
 
-        viewModel.user.observe(viewLifecycleOwner){ userResponse ->
-            binding.tvName.text = userResponse.nama
-            binding.tvEwastePoint.text = getString(R.string.ecopoint, userResponse.jmlPoint)
+        viewModel.user.observe(viewLifecycleOwner) { user ->
+            binding.apply {
+                tvName.text = user.nama.uppercase()
+                tvEwastePoint.text = getString(R.string.ecopoint, user.jmlPoint)
+            }
         }
 
         binding.btnScanner.setOnClickListener {

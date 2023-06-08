@@ -90,15 +90,14 @@ class EcoRepository(private val context: Context, private val apiService: ApiSer
         return uuid.toString()
     }
 
-    fun getUserByUUID(email : String, password: String, uuid: String) {
+    fun getUserByUUID(uuid: String) {
         val call = apiService.getUserByUUID(uuid)
         call.enqueue(object : Callback<UserResponse> {
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                 if (response.isSuccessful) {
-                    loginUser(email, password)
                     _user.value = response.body()
                 } else {
-                    Log.e(ContentValues.TAG, "onFailure: ${response.message()}")
+                    Log.e(ContentValues.TAG, "onFailure: ${response}")
                 }
             }
 
