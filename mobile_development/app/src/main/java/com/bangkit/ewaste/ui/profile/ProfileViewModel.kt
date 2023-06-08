@@ -3,9 +3,14 @@ package com.bangkit.ewaste.ui.profile
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.bangkit.ewaste.data.EcoRepository
 import com.bangkit.ewaste.data.response.user.User
 
-class ProfileViewModel : ViewModel() {
+class ProfileViewModel(private val repository : EcoRepository) : ViewModel() {
+    fun logoutUser() {
+        repository.logoutUser()
+    }
+
     private val _user = MutableLiveData<User>().apply {
         value = User(
             "M. Fidyan Fatra Aldino",
@@ -16,4 +21,5 @@ class ProfileViewModel : ViewModel() {
         )
     }
     val user: LiveData<User> = _user
+
 }

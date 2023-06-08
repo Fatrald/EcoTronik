@@ -15,22 +15,22 @@ object SharedPreferences {
 
 
     fun saveToken(token : String, context: Context){
-        editorPref(context, "SignIn")
+        editorPref(context, "localPref")
             .putString("token", token)
             .apply()
     }
 
-    fun saveName( name : String, context: Context){
-        editorPref(context, "name")
-            .putString("token", name)
+    fun saveLoginUser(loginData : String, context : Context){
+        editorPref(context, "localPref")
+            .putString("loginData", loginData)
             .apply()
     }
 
 
     fun logout(context: Context){
-        editorPref(context, "SignIn")
+        editorPref(context, "localPref")
             .remove("token")
-            .remove("status")
+            .remove("nama")
             .apply()
     }
 }

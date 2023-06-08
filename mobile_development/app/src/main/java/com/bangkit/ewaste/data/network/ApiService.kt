@@ -1,5 +1,6 @@
 package com.bangkit.ewaste.data.network
 
+import com.bangkit.ewaste.data.response.user.LoginRequest
 import com.bangkit.ewaste.data.response.user.LoginResponse
 import com.bangkit.ewaste.data.response.user.RegistrationRequest
 import com.bangkit.ewaste.data.response.user.RegistrationResponse
@@ -13,8 +14,7 @@ interface ApiService {
 
     @POST("login")
     fun login(
-        @Field("email") email : String,
-        @Field("password") password : String
+        @Body loginRequest: LoginRequest
     ) : Call<LoginResponse>
 
 

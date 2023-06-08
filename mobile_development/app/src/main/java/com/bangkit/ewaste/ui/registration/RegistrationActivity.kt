@@ -1,6 +1,7 @@
 package com.bangkit.ewaste.ui.registration
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
@@ -17,7 +18,8 @@ class RegistrationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_registration)
+        binding = ActivityRegistrationBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
 
         setUpAction()
@@ -39,6 +41,13 @@ class RegistrationActivity : AppCompatActivity() {
 
             Toast.makeText(this@RegistrationActivity, getString(R.string.registration_success), Toast.LENGTH_SHORT).show()
 
+        }
+    }
+
+    companion object {
+        fun open(context: Context) {
+            val intent = Intent(context, RegistrationActivity::class.java)
+            context.startActivity(intent)
         }
     }
 }

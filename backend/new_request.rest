@@ -38,3 +38,6 @@ GET http://localhost:3000/users/0bb1a972-755d-434f-8f6a-9d0971d11940
 
 # DELETE USER BY ID
 DELETE http://localhost:3000/users/22fb411a-a76f-4af6-aaf8-09c63e149e0e
+
+# LOGOUT
+DELETE http://localhost:3000/logout

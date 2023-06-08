@@ -6,8 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
+import com.bangkit.ewaste.MainActivity
 import com.bangkit.ewaste.databinding.FragmentProfileBinding
+import com.bangkit.ewaste.utils.EcoViewModelFactory
 
 class ProfileFragment : Fragment() {
 
@@ -15,10 +19,10 @@ class ProfileFragment : Fragment() {
 
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: ProfileViewModel
+    private var mainActivity: MainActivity? = null
 
-    companion object {
-        fun newInstance() = ProfileFragment()
+    private val viewModel: ProfileViewModel by viewModels {
+        EcoViewModelFactory(requireContext())
     }
 
     override fun onCreateView(
@@ -26,35 +30,15 @@ class ProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
-
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
-
-        val root: View = binding.root
-
-        return root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.user.observe(viewLifecycleOwner) {
-            binding.tvName.text = it.name
-            binding.tvContentName.text = it.name
-            binding.tvContentAddress.text = it.alamat
-            binding.tvContentEmail.text = it.email
-            binding.tvContentTelp.text = it.telp
-        }
-        binding.ibEditProfile.setOnClickListener {
-            val name = binding.tvContentName.text
-            val alamat = binding.tvContentAddress.text
-            val email = binding.tvContentEmail.text
-            val telp = binding.tvContentTelp.text
-            val action =
-                ProfileFragmentDirections
-                    .actionNavigationProfileToEditProfileFragment(
-                        name.toString(), alamat.toString(), email.toString(), telp.toString()
-                    )
-            Navigation.findNavController(view).navigate(action)
+        binding.btnLogout.setOnClickListener {
+            viewModel.logoutUser()
+            mainActivity?.finishMainActivity()
         }
     }
 
