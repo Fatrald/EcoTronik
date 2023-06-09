@@ -47,8 +47,8 @@ def classify_image(image):
     predicted_class = predict_class(image)
     return predicted_class
 
-inputs = gr.inputs.Image(type="pil", label="Upload an image")
-outputs = gr.outputs.Label()
+inputs = gr.Image(type="pil", label="Upload an image")
+outputs = gr.Label()
 
 title = "Ecotronik"
 description = "Upload an image and get the predicted class."
