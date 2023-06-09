@@ -1,4 +1,4 @@
-FROM python:3.9
+FROM python:3.9-slim-buster
 
 WORKDIR /code
 
@@ -12,14 +12,7 @@ RUN useradd -m -u 1000 user
 USER user
 # Set home to the user's home directory
 ENV HOME=/home/user \
-	PATH=/home/user/.local/bin:$PATH \
-    PYTHONPATH=$HOME/app \
-	PYTHONUNBUFFERED=1 \
-	GRADIO_ALLOW_FLAGGING=never \
-	GRADIO_NUM_PORTS=1 \
-	GRADIO_SERVER_NAME=0.0.0.0 \
-	GRADIO_THEME=huggingface \
-	SYSTEM=spaces
+		PATH=/home/user/.local/bin:$PATH
 
 # Set the working directory to the user's home directory
 WORKDIR $HOME/app
