@@ -20,7 +20,7 @@ We work collaboratively to produce a final project with the scope below :
  * Developing the Ecotronik application as a mobile app that can be used as a place for electronic waste disposal for the community so that electronic waste does not have a negative impact on the environment
  * The Machine Learning team will utilize the Tensorflow library to develop a Neural Network design that can classify various types of electronic waste. To collect the dataset, we used the dataset from images.cv and we used data scraping techniques to get additional datasets needed to train the model.
  * The Mobile Development team will be responsible for designing the user interface (UI) for the application and integrating it into the Android platform. They will also finalize the application by incorporating an API endpoint from the Cloud, which includes a dataset of electronic waste and a pre-trained machine learning (ML) model.
- * The Cloud Computing team will establish a cloud service infrastructure to deploy the machine learning model on an Cloud Run. They will utilize cloud SQL and cloud storage to store various types of data, including electronic waste and user data. Additionally, they have developed a REST API application to facilitate data communication between different components of the system.
+ * The Cloud Computing team will establish a cloud service infrastructure to deploy the machine learning model on Cloud Run. They will utilize cloud SQL and cloud storage to store various types of data, including electronic waste and user data. Additionally, they have developed a REST API application to facilitate data communication between different components of the system.
 
 
 
