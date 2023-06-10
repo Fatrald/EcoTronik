@@ -12,6 +12,8 @@ import com.bangkit.ewaste.data.response.user.LoginRequest
 import com.bangkit.ewaste.data.response.user.LoginResponse
 import com.bangkit.ewaste.data.response.user.RegistrationRequest
 import com.bangkit.ewaste.data.response.user.RegistrationResponse
+import com.bangkit.ewaste.data.response.user.UpdateUserRequest
+import com.bangkit.ewaste.data.response.user.UpdateUserResponse
 import com.bangkit.ewaste.data.response.user.UserResponse
 import com.bangkit.ewaste.ui.login.LoginActivity
 import com.bangkit.ewaste.utils.SharedPreferences
@@ -97,11 +99,31 @@ class EcoRepository(private val context: Context, private val apiService: ApiSer
                 if (response.isSuccessful) {
                     _user.value = response.body()
                 } else {
-                    Log.e(ContentValues.TAG, "onFailure: ${response}")
+                    Log.e(ContentValues.TAG, "onFailure: $response")
                 }
             }
 
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                context.showToast("Data Gagal Dimuat, Periksa Koneksi Anda")
+            }
+        })
+    }
+
+    fun updateUser(uuid : String, updateUserRequest: UpdateUserRequest) {
+        val call = apiService.updateUserByUUID(uuid, updateUserRequest)
+        call.enqueue(object : Callback<UpdateUserResponse> {
+            override fun onResponse(
+                call: Call<UpdateUserResponse>,
+                response: Response<UpdateUserResponse>
+            ) {
+                if (response.isSuccessful) {
+                    context.showToast(response.body()?.msg.toString())
+                } else {
+                    context.showToast("Update User Gagal")
+                }
+            }
+
+            override fun onFailure(call: Call<UpdateUserResponse>, t: Throwable) {
                 context.showToast("Data Gagal Dimuat, Periksa Koneksi Anda")
             }
         })

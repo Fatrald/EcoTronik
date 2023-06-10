@@ -6,7 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.bangkit.ewaste.MainActivity
+import com.bangkit.ewaste.R
 import com.bangkit.ewaste.data.response.user.LoginRequest
 import com.bangkit.ewaste.databinding.FragmentProfileBinding
 import com.bangkit.ewaste.utils.EcoViewModelFactory
@@ -39,8 +42,12 @@ class ProfileFragment : Fragment() {
             mainActivity?.finishMainActivity()
         }
 
+        binding.ibEditProfile.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_profile_to_editProfileFragment)
+        }
+
         val uuid = viewModel.getUUID()
-        viewModel.getUserByUUID("ede675ab-dd46-4dc5-8f97-ed4f0eef60fd")
+        viewModel.getUserByUUID(uuid)
 
         viewModel.user.observe(viewLifecycleOwner){ userResponse ->
             binding.apply {

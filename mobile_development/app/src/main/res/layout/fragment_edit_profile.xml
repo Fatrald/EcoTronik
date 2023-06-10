@@ -131,8 +131,9 @@
             android:layout_marginTop="12dp"
             android:textColor="@color/slate_500"
             android:textSize="16sp"
+            android:enabled="false"
             android:height="56dp"
-            android:background="@drawable/background_outline_primary"
+            android:background="@drawable/background_outline_primary_disable"
             android:padding="12dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_label_email" />

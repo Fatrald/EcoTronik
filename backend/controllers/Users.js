@@ -64,22 +64,41 @@ export const updateUser = async (req, res) => {
   if (!user) return res.status(404).json({ msg: "User tidak ditemukan" });
   const { nama, alamat, email, profile_image, no_telp, jml_point } = req.body;
   try {
-    await Users.update(
-      {
-        nama: nama,
-        alamat: alamat,
-        email: email,
-        profile_image: profile_image,
-        no_telp: no_telp,
-        jml_point: jml_point,
-      },
-      {
-        where: {
-          id: user.id,
+    if (email == user.email) {
+      await Users.update(
+        {
+          nama: nama,
+          alamat: alamat,
+          // email: email,
+          profile_image: profile_image,
+          no_telp: no_telp,
+          jml_point: jml_point,
         },
-      }
-    );
-    res.status(200).json({ msg: "Berhasil Update" });
+        {
+          where: {
+            id: user.id,
+          },
+        }
+      );
+      res.status(200).json({ msg: "Berhasil Update" });
+    } else {
+      await Users.update(
+        {
+          nama: nama,
+          alamat: alamat,
+          email: email,
+          profile_image: profile_image,
+          no_telp: no_telp,
+          jml_point: jml_point,
+        },
+        {
+          where: {
+            id: user.id,
+          },
+        }
+      );
+      res.status(200).json({ msg: "Berhasil Update" });
+    }
   } catch (error) {
     res.status(400).json({ msg: error.message });
   }
