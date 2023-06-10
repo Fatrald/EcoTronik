@@ -28,7 +28,7 @@ For building EcoTronik prototype, we collected around 7200 for 12 classes type o
 The used dataset were split into 3 sets, that are training, validation, and testing set. The training set contains 538 images of each e-waste's class, validation set contains 30 images of each e-waste's class, and testing set contains 30 images of each e-waste's class. We collected dataset from https://images.cv/ and scraping techniques.
 
 # The General Information of The Pre-trained Model Using MobileNetv2
-MobileNetV2 is a convolutional neural network (CNN) architecture that was introduced as an extension of the original MobileNet model. We use MobileNetV2 because i t achieves a good balance between model size and accuracy, allowing for faster inference and lower memory usage compared to larger and more complex models. 
+MobileNetV2 is a convolutional neural network (CNN) architecture that was introduced as an extension of the original MobileNet model. We use MobileNetV2 because it achieves a good balance between model size and accuracy, allowing for faster inference and lower memory usage compared to larger and more complex models. 
 
 # The Type of Electronic Waste Model Notebook
 We utilized the MobileNetV2 pre-trained model to extract some feautures as it's mentioned above, then fine-tuned the model with adding the CNN layers above and below it. The testing phase resulted in an accuracy of 89.72% for the trained model. Please refer to <a href="https://github.com/Fatrald/EcoTronik/blob/main/machine_learning/EcoTronik_final.ipynb">this</a> link to view the complete steps and result.
