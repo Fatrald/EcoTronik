@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bangkit.ewaste.data.EcoRepository
 import com.bangkit.ewaste.di.Injection
 import com.bangkit.ewaste.ui.customviews.ManualFragmentViewModel
+import com.bangkit.ewaste.ui.history.HistoryViewModel
 import com.bangkit.ewaste.ui.home.HomeViewModel
 import com.bangkit.ewaste.ui.login.LoginViewModel
 import com.bangkit.ewaste.ui.post.PostWasteViewModel
@@ -36,6 +37,9 @@ class EcoViewModelFactory(private val context : Context) : ViewModelProvider.Fac
             }
             modelClass.isAssignableFrom(ManualFragmentViewModel::class.java) -> {
                 ManualFragmentViewModel(Injection.provideRepository(context)) as T
+            }
+            modelClass.isAssignableFrom(HistoryViewModel::class.java) -> {
+                return HistoryViewModel(context) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel Class")
         }

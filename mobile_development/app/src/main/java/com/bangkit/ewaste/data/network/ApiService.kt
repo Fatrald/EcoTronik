@@ -1,6 +1,5 @@
 package com.bangkit.ewaste.data.network
 
-import com.bangkit.ewaste.data.response.ecotronik.EcotronikResponse
 import com.bangkit.ewaste.data.response.ecotronik.EcotronikResponseItem
 import com.bangkit.ewaste.data.response.user.*
 import retrofit2.Call
@@ -23,7 +22,7 @@ interface ApiService {
     fun register(@Body registrationRequest: RegistrationRequest): Call<RegistrationResponse>
 
     @GET("users/{uuid}")
-    fun getUserByUUID(@Path("uuid") uuid: String) : Call<UserResponse>
+    fun getUserByUUID(@Path("uuid") uuid: String) : Call<TransactionResponse>
 
     @PATCH("users/{uuid}")
     fun updateUserByUUID(
@@ -34,8 +33,8 @@ interface ApiService {
     @GET("elektronik")
     fun getEcotronik() : Call<List<EcotronikResponseItem>>
 
-    @GET("transactions/{uuid}")
+    @GET("users/{uuid}")
     fun getTransactionByUUID(
         @Path("uuid") uuid: String
-    ): Call<TransactionResponse>
+    ): Call<List<RowsItem>>
 }

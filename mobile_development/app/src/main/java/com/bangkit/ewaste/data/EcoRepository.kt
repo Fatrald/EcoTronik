@@ -8,7 +8,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.bangkit.ewaste.MainActivity
 import com.bangkit.ewaste.data.network.ApiService
-import com.bangkit.ewaste.data.response.ecotronik.EcotronikResponse
 import com.bangkit.ewaste.data.response.ecotronik.EcotronikResponseItem
 import com.bangkit.ewaste.data.response.user.LoginRequest
 import com.bangkit.ewaste.data.response.user.LoginResponse
@@ -16,7 +15,7 @@ import com.bangkit.ewaste.data.response.user.RegistrationRequest
 import com.bangkit.ewaste.data.response.user.RegistrationResponse
 import com.bangkit.ewaste.data.response.user.UpdateUserRequest
 import com.bangkit.ewaste.data.response.user.UpdateUserResponse
-import com.bangkit.ewaste.data.response.user.UserResponse
+import com.bangkit.ewaste.data.response.user.TransactionResponse
 import com.bangkit.ewaste.ui.login.LoginActivity
 import com.bangkit.ewaste.utils.SharedPreferences
 import com.bangkit.ewaste.utils.showToast
@@ -26,8 +25,8 @@ import retrofit2.Response
 import com.google.gson.Gson
 
 class EcoRepository(private val context: Context, private val apiService: ApiService) {
-    private val _user = MutableLiveData<UserResponse>()
-    val user : LiveData<UserResponse> get() = _user
+    private val _user = MutableLiveData<TransactionResponse>()
+    val user : LiveData<TransactionResponse> get() = _user
 
     private val _ecotronik = MutableLiveData<List<EcotronikResponseItem>>()
     val ecotronik : LiveData<List<EcotronikResponseItem>> get() = _ecotronik
@@ -99,8 +98,8 @@ class EcoRepository(private val context: Context, private val apiService: ApiSer
 
     fun getUserByUUID(uuid: String) {
         val call = apiService.getUserByUUID(uuid)
-        call.enqueue(object : Callback<UserResponse> {
-            override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
+        call.enqueue(object : Callback<TransactionResponse> {
+            override fun onResponse(call: Call<TransactionResponse>, response: Response<TransactionResponse>) {
                 if (response.isSuccessful) {
                     _user.value = response.body()
                 } else {
@@ -108,7 +107,7 @@ class EcoRepository(private val context: Context, private val apiService: ApiSer
                 }
             }
 
-            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+            override fun onFailure(call: Call<TransactionResponse>, t: Throwable) {
                 context.showToast("Data Gagal Dimuat, Periksa Koneksi Anda")
             }
         })

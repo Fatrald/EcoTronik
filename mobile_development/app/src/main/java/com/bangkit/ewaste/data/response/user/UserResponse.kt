@@ -29,38 +29,38 @@ data class UserResponse(
 	val alamat: String
 )
 
-data class Transaksi(
-
-	@field:SerializedName("count")
-	val count: Int,
-
-	@field:SerializedName("rows")
-	val rows: List<RowsItem?>
-)
-
-data class RowsItem(
-
-	@field:SerializedName("createdAt")
-	val createdAt: String,
-
-	@field:SerializedName("elektronikId")
-	val elektronikId: Int,
-
-	@field:SerializedName("id")
-	val id: Int,
-
-	@field:SerializedName("uuid_trx")
-	val uuidTrx: String,
-
-	@field:SerializedName("userId")
-	val userId: Int,
-
-	@field:SerializedName("jmlh")
-	val jmlh: Int,
-
-	@field:SerializedName("status")
-	val status: String,
-
-	@field:SerializedName("updatedAt")
-	val updatedAt: String
-)
+//data class Transaksi(
+//
+//	@field:SerializedName("count")
+//	val count: Int,
+//
+//	@field:SerializedName("rows")
+//	val rows: List<RowsItem?>
+//)
+//
+//data class RowsItem(
+//
+//	@field:SerializedName("createdAt")
+//	val createdAt: String,
+//
+//	@field:SerializedName("elektronikId")
+//	val elektronikId: Int,
+//
+//	@field:SerializedName("id")
+//	val id: Int,
+//
+//	@field:SerializedName("uuid_trx")
+//	val uuidTrx: String,
+//
+//	@field:SerializedName("userId")
+//	val userId: Int,
+//
+//	@field:SerializedName("jmlh")
+//	val jmlh: Int,
+//
+//	@field:SerializedName("status")
+//	val status: String,
+//
+//	@field:SerializedName("updatedAt")
+//	val updatedAt: String
+//)

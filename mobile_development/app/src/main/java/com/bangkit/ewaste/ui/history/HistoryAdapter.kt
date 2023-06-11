@@ -6,37 +6,35 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.ewaste.R
-import com.bangkit.ewaste.data.response.user.TransactionResponse
+import com.bangkit.ewaste.data.response.user.RowsItem
 
-class HistoryAdapter: RecyclerView.Adapter<HistoryAdapter.TransactionViewHolder>() {
-    private val transactionList: MutableList<TransactionResponse> = mutableListOf()
+class HistoryAdapter(private var transactions: List<RowsItem>) : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
 
-    fun setData(transactions: List<TransactionResponse>) {
-        transactionList.clear()
-        transactionList.addAll(transactions)
-        notifyDataSetChanged()
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_history, parent, false)
+        return ViewHolder(view)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_history, parent, false)
-        return TransactionViewHolder(itemView)
-    }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val transaction = transactions[position]
 
-    override fun onBindViewHolder(holder: TransactionViewHolder, position: Int) {
-        val transaction = transactionList[position]
-        holder.bind(transaction)
+        holder.transactionIdTextView.text = transaction.uuidTrx
+        holder.transactionDateTextView.text = transaction.createdAt
+        holder.transactionStatusTextView.text = transaction.status
     }
 
     override fun getItemCount(): Int {
-        return transactionList.size
+        return transactions.size
     }
 
-    inner class TransactionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(transaction: TransactionResponse) {
-            // Bind the transaction data to the views in the item layout
-            itemView.findViewById<TextView>(R.id.transaction_id).text = transaction.uuid_trx
-            itemView.findViewById<TextView>(R.id.transaction_date).text = transaction.tglPost
-            itemView.findViewById<TextView>(R.id.transaction_status).text = transaction.status
-        }
+    fun updateData(transactions: List<RowsItem>) {
+        this.transactions = transactions
+        notifyDataSetChanged()
+    }
+
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val transactionIdTextView: TextView = itemView.findViewById(R.id.transaction_id)
+        val transactionDateTextView: TextView = itemView.findViewById(R.id.transaction_date)
+        val transactionStatusTextView: TextView = itemView.findViewById(R.id.transaction_status)
     }
 }

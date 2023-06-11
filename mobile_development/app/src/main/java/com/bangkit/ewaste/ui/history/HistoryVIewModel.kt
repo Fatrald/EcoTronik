@@ -3,44 +3,42 @@ package com.bangkit.ewaste.ui.history
 import android.content.ContentValues
 import android.content.Context
 import android.util.Log
+import androidx.constraintlayout.widget.ConstraintLayoutStates.TAG
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.bangkit.ewaste.data.network.ApiConfig
-import com.bangkit.ewaste.data.network.ApiConfig.getApiService
+import com.bangkit.ewaste.data.response.user.RowsItem
+import com.bangkit.ewaste.data.response.user.Transaksi
 import com.bangkit.ewaste.data.response.user.TransactionResponse
-import kotlinx.coroutines.flow.Flow
 import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
-class HistoryViewModel : ViewModel() {
-    private val _transactionList = MutableLiveData<List<TransactionResponse>>()
-    val transactionList: LiveData<List<TransactionResponse>> get() = _transactionList
 
-    fun getTransactionByUUID(context: Context, uuid: String) {
-        val apiService = getApiService(context)
-        val call = apiService.getTransactionByUUID(uuid)
+class HistoryViewModel(private val context: Context) : ViewModel() {
+    private val _transactionHistory = MutableLiveData<List<RowsItem>>()
+    val transactionHistory: LiveData<List<RowsItem>> = _transactionHistory
 
-        call.enqueue(object : Callback<TransactionResponse> {
+
+
+    fun getHistoryTransaction(uuid: String) {
+        val client = ApiConfig.getApiService(context).getTransactionByUUID(uuid)
+        client.enqueue(object : retrofit2.Callback<List<RowsItem>>{
+
             override fun onResponse(
-                call: Call<TransactionResponse>,
-                response: Response<TransactionResponse>
+                call: Call<List<RowsItem>>,
+                response: Response<List<RowsItem>>
             ) {
                 if (response.isSuccessful) {
-                    val transaction = response.body()
-                    if (transaction != null) {
-                        _transactionList.value = listOf(transaction)
-                    }
-                } else {
-                    // Handle the error case
+                    _transactionHistory.value = response.body()
+                    Log.d(TAG, response.body().toString())
+                }else {
+                    Log.e(ContentValues.TAG, "onFailure : ${response.message()}")
                 }
             }
 
-            override fun onFailure(call: Call<TransactionResponse>, t: Throwable) {
-                // Handle the failure case
+            override fun onFailure(call: Call<List<RowsItem>>, t: Throwable) {
+                Log.d(TAG,t.message.toString())
             }
         })
     }
