@@ -139,21 +139,22 @@ class EcoRepository(private val context: Context, private val apiService: ApiSer
 
     fun getEcotronik() {
         val call = apiService.getEcotronik()
-        call.enqueue(object : Callback<EcotronikResponse> {
+        call.enqueue(object : Callback<List<EcotronikResponseItem>> {
             override fun onResponse(
-                call: Call<EcotronikResponse>,
-                response: Response<EcotronikResponse>
+                call: Call<List<EcotronikResponseItem>>,
+                response: Response<List<EcotronikResponseItem>>
             ) {
-                if (response.isSuccessful) {
-                    _ecotronik.value = response.body()?.ecotronikResponse
+                if (response.isSuccessful){
+                    _ecotronik.value = response.body()
                 } else {
-                    Log.e(ContentValues.TAG, "onFailure: $response")
+                    Log.e("GETECOTRONIK","Failed : ${response}")
                 }
             }
 
-            override fun onFailure(call: Call<EcotronikResponse>, t: Throwable) {
+            override fun onFailure(call: Call<List<EcotronikResponseItem>>, t: Throwable) {
                 context.showToast("Data Gagal Dimuat, Periksa Koneksi Anda")
             }
+
         })
     }
 }

@@ -1,6 +1,7 @@
 package com.bangkit.ewaste.data.network
 
 import com.bangkit.ewaste.data.response.ecotronik.EcotronikResponse
+import com.bangkit.ewaste.data.response.ecotronik.EcotronikResponseItem
 import com.bangkit.ewaste.data.response.user.*
 import retrofit2.Call
 import retrofit2.http.Body
@@ -31,7 +32,7 @@ interface ApiService {
     ) : Call<UpdateUserResponse>
 
     @GET("elektronik")
-    fun getEcotronik() : Call<EcotronikResponse>
+    fun getEcotronik() : Call<List<EcotronikResponseItem>>
 
     @GET("transactions/{uuid}")
     fun getTransactionByUUID(

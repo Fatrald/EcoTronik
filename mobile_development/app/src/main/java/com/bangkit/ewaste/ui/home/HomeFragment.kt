@@ -46,6 +46,7 @@ class HomeFragment : Fragment() {
             binding.apply {
                 tvName.text = user.nama.uppercase()
                 tvEwastePoint.text = getString(R.string.ecopoint, user.jmlPoint)
+                tvEwasteTransaction.text = user.transaksi?.count.toString()
             }
         }
 

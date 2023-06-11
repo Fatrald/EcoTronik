@@ -3,7 +3,6 @@ package com.bangkit.ewaste.ui.customviews
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +22,6 @@ import com.bangkit.ewaste.utils.showToast
 class CustomDialogManualFragment : DialogFragment() {
     private lateinit var spinner: Spinner
     private lateinit var tvValue: EditText
-    private lateinit var wasteOption : List<String>
     private lateinit var ecotronik: LiveData<List<EcotronikResponseItem>>
     private val viewModel: ManualFragmentViewModel by viewModels {
         EcoViewModelFactory(requireContext())
@@ -46,9 +44,16 @@ class CustomDialogManualFragment : DialogFragment() {
         tvValue = view.findViewById(R.id.value)
         spinner = view.findViewById(R.id.option_waste)
 
+
         viewModel.getEcotronik()
+        viewModel.ecotronik.observe(this) { data ->
+            val spinnerData = data.map { it.jenisElektronik }.toTypedArray()
 
-
+            val adapter =
+                ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, spinnerData)
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinner.adapter = adapter
+        }
 
         var count = tvValue.text.toString().toInt()
         view.findViewById<ImageButton>(R.id.btn_add).setOnClickListener {
