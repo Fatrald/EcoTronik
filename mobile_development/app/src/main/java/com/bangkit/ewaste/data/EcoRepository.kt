@@ -128,4 +128,7 @@ class EcoRepository(private val context: Context, private val apiService: ApiSer
             }
         })
     }
+    fun getTransactionHistory(){
+
+    }
 }
