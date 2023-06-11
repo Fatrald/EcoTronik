@@ -1,13 +1,7 @@
 package com.bangkit.ewaste.data.network
 
 import com.bangkit.ewaste.data.response.ecotronik.EcotronikResponse
-import com.bangkit.ewaste.data.response.user.LoginRequest
-import com.bangkit.ewaste.data.response.user.LoginResponse
-import com.bangkit.ewaste.data.response.user.RegistrationRequest
-import com.bangkit.ewaste.data.response.user.RegistrationResponse
-import com.bangkit.ewaste.data.response.user.UpdateUserRequest
-import com.bangkit.ewaste.data.response.user.UpdateUserResponse
-import com.bangkit.ewaste.data.response.user.UserResponse
+import com.bangkit.ewaste.data.response.user.*
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -38,4 +32,9 @@ interface ApiService {
 
     @GET("elektronik")
     fun getEcotronik() : Call<EcotronikResponse>
+
+    @GET("transactions/{uuid}")
+    fun getTransactionByUUID(
+        @Path("uuid") uuid: String
+    ): Call<TransactionResponse>
 }

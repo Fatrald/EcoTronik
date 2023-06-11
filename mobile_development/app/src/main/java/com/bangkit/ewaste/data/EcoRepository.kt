@@ -32,7 +32,7 @@ class EcoRepository(private val context: Context, private val apiService: ApiSer
     private val _ecotronik = MutableLiveData<List<EcotronikResponseItem>>()
     val ecotronik : LiveData<List<EcotronikResponseItem>> get() = _ecotronik
 
-    fun registerUser(nama: String, email: String, password: String, confPassword: String, callback: (Boolean) -> Unit) {
+    fun registerUser(nama: String, email: String, password: String, confPassword: String) {
         val registrationRequest = RegistrationRequest(nama, email, password, confPassword)
         val call = apiService.register(registrationRequest)
 
@@ -133,9 +133,12 @@ class EcoRepository(private val context: Context, private val apiService: ApiSer
             }
         })
     }
+<<<<<<< Updated upstream
     fun getTransactionHistory(){
 
     }
+=======
+>>>>>>> Stashed changes
 
     fun getEcotronik() {
         val call = apiService.getEcotronik()
@@ -155,5 +158,9 @@ class EcoRepository(private val context: Context, private val apiService: ApiSer
                 context.showToast("Data Gagal Dimuat, Periksa Koneksi Anda")
             }
         })
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
     }
 }
