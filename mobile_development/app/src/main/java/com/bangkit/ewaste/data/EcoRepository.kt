@@ -133,10 +133,9 @@ class EcoRepository(private val context: Context, private val apiService: ApiSer
             }
         })
     }
-<<<<<<< Updated upstream
     fun getTransactionHistory(){
 
-=======
+    }
 
     fun getEcotronik() {
         val call = apiService.getEcotronik()
@@ -152,10 +151,9 @@ class EcoRepository(private val context: Context, private val apiService: ApiSer
                 }
             }
 
-            override fun onFailure(call: Call<EcotronikResponse>, t: Throwable) {                context.showToast("Data Gagal Dimuat, Periksa Koneksi Anda")
+            override fun onFailure(call: Call<EcotronikResponse>, t: Throwable) {
                 context.showToast("Data Gagal Dimuat, Periksa Koneksi Anda")
             }
         })
->>>>>>> Stashed changes
     }
 }

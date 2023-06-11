@@ -1,4 +1,5 @@
 import Users from "../models/UsersModels.js";
+import Transaksi from "../models/TransaksiModels.js";
 import argon2, { hash } from "argon2";
 
 export const getUsers = async (req, res) => {
@@ -14,8 +15,9 @@ export const getUsers = async (req, res) => {
 
 export const getUserById = async (req, res) => {
   try {
-    const response = await Users.findOne({
+    const user = await Users.findOne({
       attributes: [
+        "id",
         "uuid",
         "nama",
         "alamat",
@@ -28,6 +30,21 @@ export const getUserById = async (req, res) => {
         uuid: req.params.id,
       },
     });
+    const transaction = await Transaksi.findAndCountAll({
+      where: {
+        userId: user.id,
+      },
+    });
+    const response = {
+      uuid: user.uuid,
+      nama: user.nama,
+      alamat: user.alamat,
+      no_telp: user.no_telp,
+      email: user.email,
+      role: user.role,
+      jml_point: user.jml_point,
+      transaksi: transaction,
+    };
     res.status(200).json(response);
   } catch (error) {
     res.status(500).json({ msg: error.message });
