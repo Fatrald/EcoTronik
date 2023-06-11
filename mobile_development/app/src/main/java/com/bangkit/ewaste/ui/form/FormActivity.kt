@@ -6,16 +6,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.ewaste.adapter.FormAdapter
 import com.bangkit.ewaste.databinding.ActivityFormBinding
-import com.bangkit.ewaste.ui.customviews.CustomDialogFragment
 import com.bangkit.ewaste.ui.customviews.CustomDialogManualFragment
 import com.bangkit.ewaste.ui.post.CameraActivity
-import com.bangkit.ewaste.utils.ConstVal
 import com.bangkit.ewaste.utils.ConstVal.KEY_FORM
 import com.bangkit.ewaste.utils.EcoViewModelFactory
 import com.bangkit.ewaste.utils.showToast
+import java.text.NumberFormat
+import java.util.Locale
 
 class FormActivity : AppCompatActivity() {
 
@@ -24,10 +23,12 @@ class FormActivity : AppCompatActivity() {
 
     private lateinit var formViewModel : FormActivityViewModel
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _activityFormBinding = ActivityFormBinding.inflate(layoutInflater)
         setContentView(_activityFormBinding?.root)
+        setupViewModel()
 
         val typeForm = intent.getStringExtra(KEY_FORM)
 
@@ -44,15 +45,44 @@ class FormActivity : AppCompatActivity() {
             }
         }
 
-        setupViewModel()
         val uuid = formViewModel.getUUID()
         formViewModel.getTransaksiByStatus(uuid, "menunggu")
-        formViewModel.listTransaksi.observe(this){
-            val layoutManager = LinearLayoutManager(this)
-            val adapter = FormAdapter(it)
-            binding.rvForm.layoutManager = layoutManager
-            binding.rvForm.adapter = adapter
+        val adapter = FormAdapter(formViewModel.listTransaksi)
+        val layoutManager = LinearLayoutManager(this)
+        binding.rvForm.layoutManager = layoutManager
+        binding.rvForm.adapter = adapter
+
+        formViewModel.listTransaksi.observe(this) { data ->
+            var point = 0
+            data.map {
+                point += it.point
+            }
+            val numberFormat = NumberFormat.getNumberInstance(Locale.getDefault())
+            val formattedNumber = numberFormat.format(point)
+            // Do something with the point value
+
+            val wasteCount = data.size
+            // Do something with the wasteCount value
+            binding.tvPoint.text = formattedNumber.toString()
+            binding.tvWasteSum.text = wasteCount.toString()
+
+            binding.btnSetor.setOnClickListener {
+                data.map {
+                    formViewModel.submitForm(it.uuid, "proses")
+                }
+                FormResultActivity.start(this, "submit")
+            }
         }
+
+//        binding.btnSetor.setOnClickListener {
+//            formViewModel.listTransaksi.observe(this) {data ->
+//                data.map {
+//                    formViewModel.submitForm(it.uuid, "proses")
+//                }
+//            }
+//        }
+
+
     }
 
     private fun setupViewModel() {
@@ -63,6 +93,11 @@ class FormActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         showToast("Form Disimpan di History")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        formViewModel.listTransaksi.removeObservers(this)
     }
 
     companion object {

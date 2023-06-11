@@ -29,6 +29,7 @@ export const getTransaksiByUserId = async (req, res) => {
 
 export const getTransaksiByStatus = async (req, res) => {
   try {
+    const result = [];
     const user = await Users.findOne({
       where: { uuid: req.params.uuid },
     });
@@ -38,7 +39,24 @@ export const getTransaksiByStatus = async (req, res) => {
         status: req.params.status,
       },
     });
-    res.status(200).json(transaksi);
+    for (const data of transaksi) {
+      const elektronik = await Elektronik.findOne({
+        where: {
+          id: data.elektronikId,
+        },
+      });
+      const point = elektronik.point * data.jmlh;
+
+      result.push({
+        uuid: data.uuid_trx,
+        status: data.status,
+        createdAt: data.createdAt,
+        jenis_elektronik: elektronik.jenis_elektronik,
+        point: point,
+        jmlh: data.jmlh,
+      });
+    }
+    res.status(200).json(result);
   } catch (error) {
     res.status(500).json({ error: "internal server error" });
   }
@@ -102,6 +120,7 @@ export const updateTransaksi = async (req, res) => {
         },
       }
     );
+    res.status(200).json({ msg: "Berhasil Update" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: error.message });

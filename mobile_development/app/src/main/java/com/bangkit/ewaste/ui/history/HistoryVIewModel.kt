@@ -21,25 +21,25 @@ class HistoryViewModel(private val context: Context) : ViewModel() {
 
 
 
-    fun getHistoryTransaction(uuid: String) {
-        val client = ApiConfig.getApiService(context).getTransactionByUUID(uuid)
-        client.enqueue(object : retrofit2.Callback<List<RowsItem>>{
-
-            override fun onResponse(
-                call: Call<List<RowsItem>>,
-                response: Response<List<RowsItem>>
-            ) {
-                if (response.isSuccessful) {
-                    _transactionHistory.value = response.body()
-                    Log.d(TAG, response.body().toString())
-                }else {
-                    Log.e(ContentValues.TAG, "onFailure : ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<List<RowsItem>>, t: Throwable) {
-                Log.d(TAG,t.message.toString())
-            }
-        })
-    }
+//    fun getHistoryTransaction(uuid: String) {
+//        val client = ApiConfig.getApiService(context).getTransactionByUUID(uuid)
+//        client.enqueue(object : retrofit2.Callback<List<RowsItem>>{
+//
+//            override fun onResponse(
+//                call: Call<List<RowsItem>>,
+//                response: Response<List<RowsItem>>
+//            ) {
+//                if (response.isSuccessful) {
+//                    _transactionHistory.value = response.body()
+//                    Log.d(TAG, response.body().toString())
+//                }else {
+//                    Log.e(ContentValues.TAG, "onFailure : ${response.message()}")
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<List<RowsItem>>, t: Throwable) {
+//                Log.d(TAG,t.message.toString())
+//            }
+//        })
+//    }
 }

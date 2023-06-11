@@ -18,6 +18,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.bangkit.ewaste.R
 import com.bangkit.ewaste.data.response.ecotronik.EcotronikResponseItem
+import com.bangkit.ewaste.ui.form.FormActivityViewModel
 import com.bangkit.ewaste.utils.EcoViewModelFactory
 import com.bangkit.ewaste.utils.showToast
 
@@ -26,6 +27,9 @@ class CustomDialogManualFragment : DialogFragment() {
     private lateinit var tvValue: EditText
     private lateinit var wasteUUID : String
     private val viewModel: ManualFragmentViewModel by viewModels {
+        EcoViewModelFactory(requireContext())
+    }
+    private val formViewModel : FormActivityViewModel by viewModels {
         EcoViewModelFactory(requireContext())
     }
 
@@ -49,12 +53,6 @@ class CustomDialogManualFragment : DialogFragment() {
 
         viewModel.getEcotronik()
         viewModel.ecotronik.observe(this) { data ->
-//            val spinnerData = data.map { it.jenisElektronik }.toTypedArray()
-//
-//            val adapter =
-//                ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, spinnerData)
-//            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-//            spinner.adapter = adapter
             val spinnerData = mutableMapOf<String, String>()
 
             data.forEach { item ->

@@ -29,7 +29,7 @@ class HistoryActivity : AppCompatActivity() {
         setupRecyclerView()
         setupAction()
         getUUID()
-        getHistory()
+//        getHistory()
 
 //        val transactionList = createDummyTransactions()
     }
@@ -44,24 +44,24 @@ class HistoryActivity : AppCompatActivity() {
         uuid = sharedPrefs.getString("uuid", "") ?: ""
     }
 
-    private fun getHistory() {
-
-        if (uuid != "") {
-            historyViewModel.getHistoryTransaction(uuid)
-            historyViewModel.transactionHistory.observe(this@HistoryActivity) { transactions ->
-                transactionList = transactions
-                historyAdapter.updateData(transactions)
-                val listTransaksi : List<RowsItem> = transactionList
-                historyAdapter = listTransaksi.let{ HistoryAdapter(it) }
-                binding.rvTransaction.adapter = historyAdapter
-            }
-        } else {
-            // Handle the case where UUID is not available
-        }
-
-
-
-    }
+//    private fun getHistory() {
+//
+//        if (uuid != "") {
+//            historyViewModel.getHistoryTransaction(uuid)
+//            historyViewModel.transactionHistory.observe(this@HistoryActivity) { transactions ->
+//                transactionList = transactions
+//                historyAdapter.updateData(transactions)
+//                val listTransaksi : List<RowsItem> = transactionList
+//                historyAdapter = listTransaksi.let{ HistoryAdapter(it) }
+//                binding.rvTransaction.adapter = historyAdapter
+//            }
+//        } else {
+//            // Handle the case where UUID is not available
+//        }
+//
+//
+//
+//    }
 
     private fun setupRecyclerView() {
 //        historyAdapter = HistoryAdapter(transactionList)

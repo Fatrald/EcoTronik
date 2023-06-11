@@ -47,12 +47,5 @@ data class RowsItem(
 	val uuidTrx: String,
 
 	@field:SerializedName("status")
-<<<<<<< Updated upstream
 	val status: String
 )
-=======
-	val status: String? = null
-)
-
-
->>>>>>> Stashed changes

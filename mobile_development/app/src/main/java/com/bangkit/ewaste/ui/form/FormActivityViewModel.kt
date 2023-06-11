@@ -2,13 +2,11 @@ package com.bangkit.ewaste.ui.form
 
 import androidx.lifecycle.ViewModel
 import com.bangkit.ewaste.data.EcoRepository
-import java.util.UUID
 
 class FormActivityViewModel(private val repository: EcoRepository) : ViewModel() {
 
     val listTransaksi = repository.listTransaksi
 
-    var ecotronikItem = repository.ecotronikItem
 
     fun getTransaksiByStatus(uuid: String, status : String) {
         repository.getTransaksiByStatus(uuid, status)
@@ -18,7 +16,7 @@ class FormActivityViewModel(private val repository: EcoRepository) : ViewModel()
         return repository.getUUID()
     }
 
-    fun getElektronikById(id: String) {
-        return repository.getEcotronikById(id)
+    fun submitForm(uuid: String, s: String) {
+        repository.updateStatusTransaksi(uuid, s)
     }
 }

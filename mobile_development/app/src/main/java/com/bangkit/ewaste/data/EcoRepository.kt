@@ -9,8 +9,11 @@ import androidx.lifecycle.MutableLiveData
 import com.bangkit.ewaste.MainActivity
 import com.bangkit.ewaste.data.network.ApiService
 import com.bangkit.ewaste.data.response.ecotronik.EcotronikResponseItem
+import com.bangkit.ewaste.data.response.transaksi.TransaksiByIdStatusItem
 import com.bangkit.ewaste.data.response.transaksi.TransaksiResponse
 import com.bangkit.ewaste.data.response.transaksi.TransaksiResponseItem
+import com.bangkit.ewaste.data.response.transaksi.UpdateTransaksiRequest
+import com.bangkit.ewaste.data.response.transaksi.UpdateTransaksiResponse
 import com.bangkit.ewaste.data.response.user.LoginRequest
 import com.bangkit.ewaste.data.response.user.LoginResponse
 import com.bangkit.ewaste.data.response.user.PostTransaksiResponse
@@ -37,8 +40,8 @@ class EcoRepository(private val context: Context, private val apiService: ApiSer
 
     var ecotronikItem : EcotronikResponseItem ? = null
 
-    private val _listTransaksi = MutableLiveData<List<TransaksiResponseItem>>()
-    val listTransaksi : LiveData<List<TransaksiResponseItem>> get() = _listTransaksi
+    private val _listTransaksi = MutableLiveData<List<TransaksiByIdStatusItem>>()
+    val listTransaksi : LiveData<List<TransaksiByIdStatusItem>> get() = _listTransaksi
 
     fun registerUser(nama: String, email: String, password: String, confPassword: String) {
         val registrationRequest = RegistrationRequest(nama, email, password, confPassword)
@@ -209,10 +212,10 @@ class EcoRepository(private val context: Context, private val apiService: ApiSer
 
     fun getTransaksiByStatus(uuid : String, status : String){
         val call = apiService.getTransaksiByStatus(uuid, status)
-        call.enqueue(object : Callback<List<TransaksiResponseItem>>{
+        call.enqueue(object : Callback<List<TransaksiByIdStatusItem>>{
             override fun onResponse(
-                call: Call<List<TransaksiResponseItem>>,
-                response: Response<List<TransaksiResponseItem>>
+                call: Call<List<TransaksiByIdStatusItem>>,
+                response: Response<List<TransaksiByIdStatusItem>>
             ) {
                 if (response.isSuccessful){
                     _listTransaksi.value = response.body()
@@ -221,7 +224,28 @@ class EcoRepository(private val context: Context, private val apiService: ApiSer
                 }
             }
 
-            override fun onFailure(call: Call<List<TransaksiResponseItem>>, t: Throwable) {
+            override fun onFailure(call: Call<List<TransaksiByIdStatusItem>>, t: Throwable) {
+                context.showToast("Data Gagal Dimuat, Periksa Koneksi Anda")
+            }
+        })
+    }
+
+    fun updateStatusTransaksi(uuid: String, s: String) {
+        val updateTransaksiRequest = UpdateTransaksiRequest(uuid, s)
+        val call = apiService.updateStatusTransaksi(updateTransaksiRequest)
+        call.enqueue(object : Callback<UpdateTransaksiResponse>{
+            override fun onResponse(
+                call: Call<UpdateTransaksiResponse>,
+                response: Response<UpdateTransaksiResponse>
+            ) {
+                if (response.isSuccessful){
+                    context.showToast("Data berhasil di setor")
+                } else {
+                    Log.e("updateTransaksi", "failed : ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<UpdateTransaksiResponse>, t: Throwable) {
                 context.showToast("Data Gagal Dimuat, Periksa Koneksi Anda")
             }
         })

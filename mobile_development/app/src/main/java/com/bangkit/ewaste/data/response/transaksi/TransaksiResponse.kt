@@ -34,3 +34,5 @@ data class TransaksiResponseItem(
 	@field:SerializedName("updatedAt")
 	val updatedAt: String
 )
+
+
