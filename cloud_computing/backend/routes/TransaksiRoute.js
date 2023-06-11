@@ -6,14 +6,13 @@ import {
   createTransaksi,
   updateTransaksi,
 } from "../controllers/Transaksi.js";
-import { verifyUser, adminOnly } from "../middleware/AuthUser.js";
 
 const router = express.Router();
 
 router.get("/transaksi", getTransaksi);
-router.get("/transaksi/:uuid", verifyUser, getTransaksiByUserId);
-router.get("/transaksi/:status", verifyUser, adminOnly, getTransaksiByStatus);
+router.get("/transaksi/:uuid", getTransaksiByUserId);
+router.get("/transaksi/:status", getTransaksiByStatus);
 router.post("/transaksi", createTransaksi);
-router.patch("/transaksi", verifyUser, adminOnly, updateTransaksi);
+router.patch("/transaksi", updateTransaksi);
 
 export default router;
