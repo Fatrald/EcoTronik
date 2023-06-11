@@ -10,4 +10,11 @@ class ManualFragmentViewModel (private val repository : EcoRepository) : ViewMod
     fun getEcotronik() {
         repository.getEcotronik()
     }
+    fun getUUID() : String {
+        return repository.getUUID()
+    }
+
+    fun postTransaction(state: String, count: Int, userUUID: String, wasteUUID: String) {
+        repository.createTransaksi(state, count, userUUID, wasteUUID)
+    }
 }

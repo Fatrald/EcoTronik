@@ -17,5 +17,5 @@ data class EcotronikResponseItem(
 	val jenisElektronik: String,
 
 	@field:SerializedName("point")
-	val point: String
+	val point: Int
 )

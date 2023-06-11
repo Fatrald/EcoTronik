@@ -12,7 +12,6 @@ class HomeViewModel(private val repository: EcoRepository) : ViewModel() {
     fun getUUID() : String {
         return repository.getUUID()
     }
-
     fun getUserByUUID(uuid : String) {
         repository.getUserByUUID(uuid)
     }

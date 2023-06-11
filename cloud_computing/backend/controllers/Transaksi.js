@@ -29,8 +29,12 @@ export const getTransaksiByUserId = async (req, res) => {
 
 export const getTransaksiByStatus = async (req, res) => {
   try {
+    const user = await Users.findOne({
+      where: { uuid: req.params.uuid },
+    });
     const transaksi = await Transaksi.findAll({
       where: {
+        userId: user.id,
         status: req.params.status,
       },
     });
@@ -57,7 +61,21 @@ export const createTransaksi = async (req, res) => {
       userId: user.id,
       elektronikId: elektronik.id,
     });
-    res.status(201).json({ msg: "Berhasil Melakukan Transaksi" });
+
+    // const point = user.jml_point;
+    // const add_point = elektronik.point * jmlh;
+    // const new_point = point + add_point;
+    // await user.update(
+    //   {
+    //     jml_point: new_point,
+    //   },
+    //   {
+    //     where: {
+    //       id: user.id,
+    //     },
+    //   }
+    // );
+    res.status(201).json({ msg: "Data Berhasil Ditambahkan" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: error.message });

@@ -22,7 +22,7 @@ const Elektronik = db.define(
       },
     },
     point: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
         notEmpty: true,

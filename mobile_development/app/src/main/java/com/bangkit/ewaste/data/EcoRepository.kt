@@ -9,10 +9,14 @@ import androidx.lifecycle.MutableLiveData
 import com.bangkit.ewaste.MainActivity
 import com.bangkit.ewaste.data.network.ApiService
 import com.bangkit.ewaste.data.response.ecotronik.EcotronikResponseItem
+import com.bangkit.ewaste.data.response.transaksi.TransaksiResponse
+import com.bangkit.ewaste.data.response.transaksi.TransaksiResponseItem
 import com.bangkit.ewaste.data.response.user.LoginRequest
 import com.bangkit.ewaste.data.response.user.LoginResponse
+import com.bangkit.ewaste.data.response.user.PostTransaksiResponse
 import com.bangkit.ewaste.data.response.user.RegistrationRequest
 import com.bangkit.ewaste.data.response.user.RegistrationResponse
+import com.bangkit.ewaste.data.response.user.TransaksiRequest
 import com.bangkit.ewaste.data.response.user.UpdateUserRequest
 import com.bangkit.ewaste.data.response.user.UpdateUserResponse
 import com.bangkit.ewaste.data.response.user.TransactionResponse
@@ -30,6 +34,11 @@ class EcoRepository(private val context: Context, private val apiService: ApiSer
 
     private val _ecotronik = MutableLiveData<List<EcotronikResponseItem>>()
     val ecotronik : LiveData<List<EcotronikResponseItem>> get() = _ecotronik
+
+    var ecotronikItem : EcotronikResponseItem ? = null
+
+    private val _listTransaksi = MutableLiveData<List<TransaksiResponseItem>>()
+    val listTransaksi : LiveData<List<TransaksiResponseItem>> get() = _listTransaksi
 
     fun registerUser(nama: String, email: String, password: String, confPassword: String) {
         val registrationRequest = RegistrationRequest(nama, email, password, confPassword)
@@ -146,7 +155,7 @@ class EcoRepository(private val context: Context, private val apiService: ApiSer
                 if (response.isSuccessful){
                     _ecotronik.value = response.body()
                 } else {
-                    Log.e("GETECOTRONIK","Failed : ${response}")
+                    Log.e("GETECOTRONIK","Failed : $response")
                 }
             }
 
@@ -154,6 +163,67 @@ class EcoRepository(private val context: Context, private val apiService: ApiSer
                 context.showToast("Data Gagal Dimuat, Periksa Koneksi Anda")
             }
 
+        })
+    }
+
+    fun getEcotronikById(id : String) {
+        val call = apiService.getEcotronikById(id)
+        call.enqueue(object : Callback<EcotronikResponseItem>{
+            override fun onResponse(
+                call: Call<EcotronikResponseItem>,
+                response: Response<EcotronikResponseItem>
+            ) {
+                if (response.isSuccessful){
+                    ecotronikItem = response.body()!!
+                } else {
+                    Log.e("GetEcotronikItem", "Failed : ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<EcotronikResponseItem>, t: Throwable) {
+                context.showToast("Data Gagal Dimuat, Periksa Koneksi Anda")
+            }
+        })
+    }
+
+    fun createTransaksi(state : String, count : Int, userUUID : String, wasteUUID : String){
+        val transaksiRequest = TransaksiRequest(state, count, userUUID, wasteUUID)
+        val call = apiService.postTransaksi(transaksiRequest)
+        call.enqueue(object : Callback<PostTransaksiResponse>{
+            override fun onResponse(
+                call: Call<PostTransaksiResponse>,
+                response: Response<PostTransaksiResponse>
+            ) {
+                if (response.isSuccessful){
+                    context.showToast("Transaksi Berhasil Ditambahkan")
+                } else {
+                    Log.e("postEcotronik","Failed : $response")
+                }
+            }
+
+            override fun onFailure(call: Call<PostTransaksiResponse>, t: Throwable) {
+                context.showToast("Data Gagal Dimuat, Periksa Koneksi Anda")
+            }
+        })
+    }
+
+    fun getTransaksiByStatus(uuid : String, status : String){
+        val call = apiService.getTransaksiByStatus(uuid, status)
+        call.enqueue(object : Callback<List<TransaksiResponseItem>>{
+            override fun onResponse(
+                call: Call<List<TransaksiResponseItem>>,
+                response: Response<List<TransaksiResponseItem>>
+            ) {
+                if (response.isSuccessful){
+                    _listTransaksi.value = response.body()
+                } else {
+                    Log.e("getTransaksiByStatus", "failed : ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<List<TransaksiResponseItem>>, t: Throwable) {
+                context.showToast("Data Gagal Dimuat, Periksa Koneksi Anda")
+            }
         })
     }
 }

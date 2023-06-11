@@ -1,6 +1,8 @@
 package com.bangkit.ewaste.data.network
 
 import com.bangkit.ewaste.data.response.ecotronik.EcotronikResponseItem
+import com.bangkit.ewaste.data.response.transaksi.TransaksiResponse
+import com.bangkit.ewaste.data.response.transaksi.TransaksiResponseItem
 import com.bangkit.ewaste.data.response.user.*
 import retrofit2.Call
 import retrofit2.http.Body
@@ -33,8 +35,33 @@ interface ApiService {
     @GET("elektronik")
     fun getEcotronik() : Call<List<EcotronikResponseItem>>
 
+<<<<<<< Updated upstream
     @GET("users/{uuid}")
     fun getTransactionByUUID(
         @Path("uuid") uuid: String
     ): Call<List<RowsItem>>
+=======
+    @GET("elektronik/{id}")
+    fun getEcotronikById(
+        @Path("id") id : String,
+    ) : Call<EcotronikResponseItem>
+
+    @GET("transaksi/{uuid}")
+    fun getTransactionByUUID(
+        @Path("uuid") uuid: String
+    ): Call<TransactionResponse>
+
+    @GET("transaksi/{uuid}/{status}")
+    fun getTransaksiByStatus(
+        @Path("uuid") uuid : String,
+        @Path("status") status : String,
+     ) : Call<List<TransaksiResponseItem>>
+
+    @Headers("Content-Type: application/json")
+    @POST("transaksi")
+    fun postTransaksi(
+        @Body transaksiRequest : TransaksiRequest
+    ) : Call<PostTransaksiResponse>
+
+>>>>>>> Stashed changes
 }
