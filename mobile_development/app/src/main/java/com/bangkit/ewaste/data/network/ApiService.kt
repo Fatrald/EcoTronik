@@ -1,5 +1,6 @@
 package com.bangkit.ewaste.data.network
 
+import com.bangkit.ewaste.data.response.ecotronik.EcotronikResponse
 import com.bangkit.ewaste.data.response.user.LoginRequest
 import com.bangkit.ewaste.data.response.user.LoginResponse
 import com.bangkit.ewaste.data.response.user.RegistrationRequest
@@ -34,4 +35,7 @@ interface ApiService {
         @Path("uuid") uuid: String,
         @Body updateUserRequest: UpdateUserRequest
     ) : Call<UpdateUserResponse>
+
+    @GET("elektronik")
+    fun getEcotronik() : Call<EcotronikResponse>
 }

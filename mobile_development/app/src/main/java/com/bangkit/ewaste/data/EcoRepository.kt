@@ -8,6 +8,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.bangkit.ewaste.MainActivity
 import com.bangkit.ewaste.data.network.ApiService
+import com.bangkit.ewaste.data.response.ecotronik.EcotronikResponse
+import com.bangkit.ewaste.data.response.ecotronik.EcotronikResponseItem
 import com.bangkit.ewaste.data.response.user.LoginRequest
 import com.bangkit.ewaste.data.response.user.LoginResponse
 import com.bangkit.ewaste.data.response.user.RegistrationRequest
@@ -26,6 +28,9 @@ import com.google.gson.Gson
 class EcoRepository(private val context: Context, private val apiService: ApiService) {
     private val _user = MutableLiveData<UserResponse>()
     val user : LiveData<UserResponse> get() = _user
+
+    private val _ecotronik = MutableLiveData<List<EcotronikResponseItem>>()
+    val ecotronik : LiveData<List<EcotronikResponseItem>> get() = _ecotronik
 
     fun registerUser(nama: String, email: String, password: String, confPassword: String, callback: (Boolean) -> Unit) {
         val registrationRequest = RegistrationRequest(nama, email, password, confPassword)
@@ -128,7 +133,29 @@ class EcoRepository(private val context: Context, private val apiService: ApiSer
             }
         })
     }
+<<<<<<< Updated upstream
     fun getTransactionHistory(){
 
+=======
+
+    fun getEcotronik() {
+        val call = apiService.getEcotronik()
+        call.enqueue(object : Callback<EcotronikResponse> {
+            override fun onResponse(
+                call: Call<EcotronikResponse>,
+                response: Response<EcotronikResponse>
+            ) {
+                if (response.isSuccessful) {
+                    _ecotronik.value = response.body()?.ecotronikResponse
+                } else {
+                    Log.e(ContentValues.TAG, "onFailure: $response")
+                }
+            }
+
+            override fun onFailure(call: Call<EcotronikResponse>, t: Throwable) {                context.showToast("Data Gagal Dimuat, Periksa Koneksi Anda")
+                context.showToast("Data Gagal Dimuat, Periksa Koneksi Anda")
+            }
+        })
+>>>>>>> Stashed changes
     }
 }

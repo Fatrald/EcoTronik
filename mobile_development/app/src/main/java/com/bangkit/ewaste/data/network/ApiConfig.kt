@@ -12,7 +12,8 @@ object ApiConfig {
             .setLevel(HttpLoggingInterceptor.Level.NONE)
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://backend-dot-capstone-ecotronik.et.r.appspot.com/")
+//            .baseUrl("https://backend-dot-capstone-ecotronik.et.r.appspot.com/")
+            .baseUrl("http://10.0.2.2:3000/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(
                 OkHttpClient.Builder()

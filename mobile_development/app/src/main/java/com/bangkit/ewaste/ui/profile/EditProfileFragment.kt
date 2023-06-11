@@ -41,6 +41,7 @@ class EditProfileFragment : Fragment() {
             binding.apply {
                 tvContentName.setText(user.nama)
                 tvContentAddress.setText(user.alamat)
+                tvContentEmail.setText(user.email)
                 tvContentTelp.setText(user.noTelp)
             }
         }
@@ -51,8 +52,9 @@ class EditProfileFragment : Fragment() {
             val email = binding.tvContentEmail.text.toString()
             val no_telp = binding.tvContentTelp.text.toString()
             val updateUserRequest = UpdateUserRequest(
-                nama, alamat, no_telp
+                nama, alamat, email, no_telp
             )
+            findNavController().navigate(R.id.action_editProfileFragment_to_navigation_profile)
             viewModel.updateUser(uuid, updateUserRequest)
         }
     }

@@ -10,9 +10,9 @@ import { verifyWaste } from "../middleware/WasteVerify.js";
 
 const router = express.Router();
 
-router.get("/elektronik", verifyUser, getElektronik);
-router.get("/elektronik/:id", verifyUser, getElektronikById);
-router.post("/elektronik", adminOnly, verifyWaste, createElektronik);
-router.delete("/elektronik/:id", verifyUser, adminOnly, deleteElektronik);
+router.get("/elektronik", getElektronik);
+router.get("/elektronik/:id", getElektronikById);
+router.post("/elektronik", createElektronik);
+router.delete("/elektronik/:id", deleteElektronik);
 
 export default router;
