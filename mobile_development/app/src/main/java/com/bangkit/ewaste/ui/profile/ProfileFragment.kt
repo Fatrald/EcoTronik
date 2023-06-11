@@ -6,11 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.bangkit.ewaste.MainActivity
 import com.bangkit.ewaste.R
-import com.bangkit.ewaste.data.response.user.LoginRequest
 import com.bangkit.ewaste.databinding.FragmentProfileBinding
 import com.bangkit.ewaste.utils.EcoViewModelFactory
 

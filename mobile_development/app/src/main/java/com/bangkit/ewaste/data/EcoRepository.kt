@@ -133,12 +133,9 @@ class EcoRepository(private val context: Context, private val apiService: ApiSer
             }
         })
     }
-<<<<<<< Updated upstream
     fun getTransactionHistory(){
 
     }
-=======
->>>>>>> Stashed changes
 
     fun getEcotronik() {
         val call = apiService.getEcotronik()
@@ -158,9 +155,5 @@ class EcoRepository(private val context: Context, private val apiService: ApiSer
                 context.showToast("Data Gagal Dimuat, Periksa Koneksi Anda")
             }
         })
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
     }
 }

@@ -48,19 +48,7 @@ class CustomDialogManualFragment : DialogFragment() {
 
         viewModel.getEcotronik()
 
-//        viewModel.ecotronik.observe(this) { response ->
-//            val dataList = response.map { it.jenisElektronik }
-//            wasteOption.add
-//            ArrayAdapter(
-//                requireContext().applicationContext,
-//                android.R.layout.simple_spinner_item,
-//                dataList
-//            ).also { adapter ->
-//                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-//                adapter.notifyDataSetChanged()
-//                spinner.adapter = adapter
-//            }
-//        }
+
 
         var count = tvValue.text.toString().toInt()
         view.findViewById<ImageButton>(R.id.btn_add).setOnClickListener {

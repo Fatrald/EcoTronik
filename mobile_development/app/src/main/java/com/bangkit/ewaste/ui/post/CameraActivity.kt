@@ -14,7 +14,6 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.bangkit.ewaste.R
 import com.bangkit.ewaste.databinding.ActivityCameraBinding
 import com.bangkit.ewaste.utils.ConstVal.CAMERA_X_RESULT
 import com.bangkit.ewaste.utils.ConstVal.KEY_IS_BACK_CAMERA
@@ -131,7 +130,7 @@ class CameraActivity : AppCompatActivity() {
     }
 
     companion object {
-        val TAG = "CameraActivity"
+        const val TAG = "CameraActivity"
 
         private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
 
