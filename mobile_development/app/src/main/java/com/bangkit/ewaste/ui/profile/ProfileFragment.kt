@@ -49,9 +49,9 @@ class ProfileFragment : Fragment() {
 
         viewModel.user.observe(viewLifecycleOwner){ userResponse ->
             binding.apply {
-                tvName.text = userResponse.nama.uppercase()
-                tvContentName.text = userResponse.nama.uppercase()
-                tvContentAddress.text = userResponse.alamat.uppercase()
+                tvName.text = userResponse.nama
+                tvContentName.text = userResponse.nama
+                tvContentAddress.text = userResponse.alamat
                 tvContentEmail.text = userResponse.email
                 tvContentTelp.text = userResponse.noTelp
             }

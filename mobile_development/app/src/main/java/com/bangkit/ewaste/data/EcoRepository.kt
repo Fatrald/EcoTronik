@@ -20,6 +20,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import com.google.gson.Gson
+import java.io.File
 
 class EcoRepository(private val context: Context, private val apiService: ApiService) {
     private val _user = MutableLiveData<TransactionResponse>()
@@ -285,6 +286,7 @@ class EcoRepository(private val context: Context, private val apiService: ApiSer
         })
     }
 
+<<<<<<< Updated upstream
 //    fun getTransaksiByStatus(uuid : String, status : String){
 //        val call = apiService.getTransaksiByStatus(uuid, status)
 //        call.enqueue(object : Callback<List<TransaksiResponseItem>>{
@@ -343,4 +345,9 @@ class EcoRepository(private val context: Context, private val apiService: ApiSer
 //            }
 //        }
 
+=======
+    fun upload(image : File){
+
+    }
+>>>>>>> Stashed changes
 }
