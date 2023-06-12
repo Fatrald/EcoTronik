@@ -40,7 +40,7 @@ class EcoViewModelFactory(private val context : Context) : ViewModelProvider.Fac
                 ManualFragmentViewModel(Injection.provideRepository(context)) as T
             }
             modelClass.isAssignableFrom(HistoryViewModel::class.java) -> {
-                return HistoryViewModel(context) as T
+                HistoryViewModel(Injection.provideRepository(context)) as T
             }
             modelClass.isAssignableFrom(FormActivityViewModel::class.java) -> {
                 FormActivityViewModel(Injection.provideRepository(context)) as T

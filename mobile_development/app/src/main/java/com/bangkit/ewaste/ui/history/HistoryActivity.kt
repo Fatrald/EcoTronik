@@ -1,14 +1,12 @@
 package com.bangkit.ewaste.ui.history
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.Observer
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.bangkit.ewaste.R
-import com.bangkit.ewaste.data.response.user.RowsItem
 import com.bangkit.ewaste.databinding.ActivityHistoryBinding
 import com.bangkit.ewaste.utils.EcoViewModelFactory
 import com.bangkit.ewaste.utils.SharedPreferences
@@ -16,9 +14,8 @@ import com.bangkit.ewaste.utils.SharedPreferences
 
 class HistoryActivity : AppCompatActivity() {
     private lateinit var historyViewModel: HistoryViewModel
-    private lateinit var historyAdapter: HistoryAdapter
     private lateinit var binding: ActivityHistoryBinding
-    private lateinit var transactionList: List<RowsItem>
+
     private lateinit var uuid: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,12 +23,30 @@ class HistoryActivity : AppCompatActivity() {
         binding = ActivityHistoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupRecyclerView()
         setupAction()
         getUUID()
-//        getHistory()
+        setupSpinner()
+        getHistory()
 
-//        val transactionList = createDummyTransactions()
+    }
+
+    private fun setupSpinner() {
+        val options = arrayOf("semua", "menunggu", "selesai") // Replace with your desired options
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, options)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.filterSpinner.adapter = adapter
+
+        binding.filterSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                val selectedStatus = options[position]
+                historyViewModel.filterTransactionsByStatus(selectedStatus)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // Do nothing
+            }
+        }
+
     }
 
     private fun setupAction() {
@@ -44,42 +59,16 @@ class HistoryActivity : AppCompatActivity() {
         uuid = sharedPrefs.getString("uuid", "") ?: ""
     }
 
-//    private fun getHistory() {
-//
-//        if (uuid != "") {
-//            historyViewModel.getHistoryTransaction(uuid)
-//            historyViewModel.transactionHistory.observe(this@HistoryActivity) { transactions ->
-//                transactionList = transactions
-//                historyAdapter.updateData(transactions)
-//                val listTransaksi : List<RowsItem> = transactionList
-//                historyAdapter = listTransaksi.let{ HistoryAdapter(it) }
-//                binding.rvTransaction.adapter = historyAdapter
-//            }
-//        } else {
-//            // Handle the case where UUID is not available
-//        }
-//
-//
-//
-//    }
+    private fun getHistory() {
 
-    private fun setupRecyclerView() {
-//        historyAdapter = HistoryAdapter(transactionList)
-        binding.rvTransaction.apply {
-            layoutManager = LinearLayoutManager(this@HistoryActivity)
-//            adapter = historyAdapter
-
+        val uuid = historyViewModel.getUUID()
+        historyViewModel.getTransaksiHistory(uuid)
+        historyViewModel.filteredTransaksi.observe(this) { transactions ->
+            val layoutManager = LinearLayoutManager(this)
+            val adapter = HistoryAdapter(transactions)
+            binding.rvTransaction.layoutManager = layoutManager
+            binding.rvTransaction.adapter = adapter
         }
     }
 
-//    private fun createDummyTransactions(): List<RowsItem> {
-//        val transactions = mutableListOf<RowsItem>()
-//
-//        // Create dummy transactions
-//        transactions.add(RowsItem("2023-06-10", "ecca0b6f-9054-483c-9c7d-4ca42a429215", "Success"))
-//        transactions.add(RowsItem("2023-06-10", "ecca0b6f-9054-483c-9c7d-4ca42a429215", "Pending"))
-//        transactions.add(RowsItem("2023-06-10", "ecca0b6f-9054-483c-9c7d-4ca42a429215", "Failed"))
-//
-//        return transactions
-//    }
 }

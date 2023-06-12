@@ -43,10 +43,10 @@ interface ApiService {
         @Path("id") id : String,
     ) : Call<EcotronikResponseItem>
 
-    @GET("transaksi/{uuid}")
-    fun getTransactionByUUID(
-        @Path("uuid") uuid: String
-    ): Call<TransactionResponse>
+//    @GET("transaksi/{uuid}")
+//    fun getTransactionByUUID(
+//        @Path("uuid") uuid: String
+//    ): Call<TransactionResponse>
 
     @GET("transaksi/{uuid}/{status}")
     fun getTransaksiByStatus(
@@ -65,4 +65,15 @@ interface ApiService {
         @Body updateTransaksiRequest: UpdateTransaksiRequest
     ): Call<UpdateTransaksiResponse>
 
+//    @GET("transaksi/{uuid}/{status}")
+//    fun getTransaksiHistory1(
+//        @Path("uuid") uuid : String,
+//        @Path("status") status : String,
+//    ) : Call<List<TransaksiResponseItem>>
+
+
+    @GET("transaksi/{uuid}")
+    fun getTransaksiHistory(
+        @Path("uuid") uuid : String
+    ) : Call<List<TransaksiResponseItem>>
 }
