@@ -1,3 +1,4 @@
-gradio
-tensorflow
+Flask
 Pillow
+requests
+tensorflow

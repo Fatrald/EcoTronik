@@ -1,11 +1,14 @@
 import os
-import gradio as gr
+import traceback
 import tensorflow as tf
 from PIL import Image
-import requests
 from io import BytesIO
+from flask import Flask, request, jsonify
+import requests
 
-labels = {
+app = Flask(__name__)
+
+scores = {
     0: "battery",
     1: "cable",
     2: "fan",
@@ -18,6 +21,21 @@ labels = {
     9: "smartphone",
     10: "speaker",
     11: "television"
+}
+
+classes = {
+    "battery": 1,
+    "keyboard": 2,
+    "laptop": 3,
+    "smartphone": 4,
+    "cable": 6,
+    "television": 7,
+    "headphones": 8,
+    "speaker": 9,
+    "monitor": 10,
+    "fan": 11,
+    "lamp": 12,
+    "mouse": 13
 }
 
 model_url = "https://storage.googleapis.com/ecotronik-model/ecotronik.h5"
@@ -40,21 +58,27 @@ def predict_class(image):
     img = tf.expand_dims(img, axis=0)
     prediction = model.predict(img)
     class_index = tf.argmax(prediction[0]).numpy()
-    predicted_class = labels[class_index]
-    return predicted_class
+    return class_index
 
 def classify_image(image):
-    predicted_class = predict_class(image)
-    return predicted_class
+    class_index = predict_class(image)
+    class_number = classes[scores[class_index]]
+    return class_number
 
-inputs = gr.Image(type="pil", label="Upload an image")
-outputs = gr.Label()
+@app.route("/predict_image", methods=["POST"])
+def predict_image():
+    try:
+        if "image" not in request.files:
+            return jsonify({"error": "No image uploaded."}), 400
 
-title = "Ecotronik"
-description = "Upload an image and get the predicted class."
+        image_file = request.files["image"]
+        image = Image.open(image_file)
+        class_number = classify_image(image)
 
-gr.Interface(fn=classify_image,
-             inputs=inputs,
-             outputs=outputs,
-             title=title,
-             description=description).launch()
+        return jsonify({"class_number": class_number})
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({"error": "Internal Server Error"}), 500
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=7860)
