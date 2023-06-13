@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.StrictMode
 import android.util.Log
 import android.widget.Toast
 import androidx.camera.core.CameraSelector
@@ -14,29 +15,51 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
+import com.bangkit.ewaste.R
 import com.bangkit.ewaste.databinding.ActivityCameraBinding
 import com.bangkit.ewaste.utils.ConstVal.CAMERA_X_RESULT
 import com.bangkit.ewaste.utils.ConstVal.KEY_IS_BACK_CAMERA
 import com.bangkit.ewaste.utils.ConstVal.KEY_PICTURE
 import com.bangkit.ewaste.utils.ConstVal.REQUEST_CODE_PERMISSIONS
+import com.bangkit.ewaste.utils.EcoViewModelFactory
 import com.bangkit.ewaste.utils.createFile
 import com.bangkit.ewaste.utils.showToast
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import com.google.auth.oauth2.GoogleCredentials
+import com.google.cloud.storage.BlobInfo
+import com.google.cloud.storage.StorageOptions
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import java.io.FileInputStream
+import java.io.InputStream
 
+@Suppress("DEPRECATION")
+@OptIn(DelicateCoroutinesApi::class)
 class CameraActivity : AppCompatActivity() {
 
     private var _activityCameraBinding : ActivityCameraBinding? = null
     private val binding get() = _activityCameraBinding!!
 
     private lateinit var cameraExecutor : ExecutorService
+    private lateinit var fullPath : String
     private var cameraSelector : CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
     private var imageCapture : ImageCapture? = null
+    private lateinit var viewModel : PostWasteViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _activityCameraBinding = ActivityCameraBinding.inflate(layoutInflater)
         setContentView(_activityCameraBinding?.root)
+
+        StrictMode.setThreadPolicy(
+            StrictMode.ThreadPolicy.Builder()
+                .permitAll()
+                .build()
+        )
 
         if (!allPermissionsGranted()) {
             ActivityCompat.requestPermissions(
@@ -46,8 +69,15 @@ class CameraActivity : AppCompatActivity() {
             )
         }
 
+        setupViewModel()
         initExecutor()
         initAction()
+
+    }
+
+    private fun setupViewModel() {
+        val viewModelFactory = EcoViewModelFactory(this)
+        viewModel = ViewModelProvider(this, viewModelFactory)[PostWasteViewModel::class.java]
     }
 
     override fun onResume() {
@@ -79,19 +109,40 @@ class CameraActivity : AppCompatActivity() {
     private fun takePhoto() {
         val imageCapture = imageCapture ?: return
         val photoFile = createFile(application)
-
         val outputOption = ImageCapture.OutputFileOptions.Builder(photoFile).build()
         imageCapture.takePicture(
             outputOption,
             ContextCompat.getMainExecutor(this),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
+
+                    GlobalScope.launch(Dispatchers.IO) {
+                        val bucketUrl = "https://storage.googleapis.com/"
+                        val bucketName = "eco-tronik"
+                        val folderName = "ewaste"
+                        val photoFileName = photoFile.name
+                        val photoFilePath = photoFile.absolutePath
+                        // Set up Google Cloud Storage client
+                        val stream : InputStream = resources.openRawResource(R.raw.capstone)
+                        val credential = GoogleCredentials.fromStream(stream)
+                        val storage = StorageOptions.newBuilder().setCredentials(credential).build().service
+                        // Create a blob ID for the photo file
+                        val blobName = "$folderName/$photoFileName"
+                        val blobInfo = BlobInfo.newBuilder(bucketName, blobName).build()
+                        // Upload the photo file to the bucket
+                        storage.create(blobInfo, FileInputStream(photoFilePath))
+                        fullPath = "$bucketUrl$bucketName/$blobName"
+                    }
                     val intent = Intent(this@CameraActivity, PostWasteActivity::class.java)
                     intent.putExtra(KEY_PICTURE, photoFile)
-                    intent.putExtra(KEY_IS_BACK_CAMERA, cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA)
+                    intent.putExtra(
+                        KEY_IS_BACK_CAMERA,
+                        cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA
+                    )
                     setResult(CAMERA_X_RESULT, intent)
                     startActivity(intent)
                     finish()
+
                 }
 
                 override fun onError(exception: ImageCaptureException) {
@@ -99,6 +150,7 @@ class CameraActivity : AppCompatActivity() {
                     Log.d(TAG, exception.toString())
                 }
             }
+
         )
     }
 
@@ -128,6 +180,8 @@ class CameraActivity : AppCompatActivity() {
             }
         }, ContextCompat.getMainExecutor(this))
     }
+
+
 
     companion object {
         const val TAG = "CameraActivity"

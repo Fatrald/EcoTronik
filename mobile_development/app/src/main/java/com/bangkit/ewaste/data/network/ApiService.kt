@@ -2,7 +2,6 @@ package com.bangkit.ewaste.data.network
 
 import com.bangkit.ewaste.data.response.ecotronik.EcotronikResponseItem
 import com.bangkit.ewaste.data.response.transaksi.TransaksiByIdStatusItem
-import com.bangkit.ewaste.data.response.transaksi.TransaksiResponse
 import com.bangkit.ewaste.data.response.transaksi.TransaksiResponseItem
 import com.bangkit.ewaste.data.response.transaksi.UpdateTransaksiRequest
 import com.bangkit.ewaste.data.response.transaksi.UpdateTransaksiResponse
@@ -14,7 +13,6 @@ import retrofit2.http.Headers
 import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Path
-import java.io.File
 
 interface ApiService {
 
@@ -41,7 +39,7 @@ interface ApiService {
 
     @GET("elektronik/{id}")
     fun getEcotronikById(
-        @Path("id") id : String,
+        @Path("id") id : Int,
     ) : Call<EcotronikResponseItem>
 
 //    @GET("transaksi/{uuid}")
@@ -61,30 +59,30 @@ interface ApiService {
         @Body transaksiRequest : TransaksiRequest
     ) : Call<PostTransaksiResponse>
 
-    @POST("predict")
-    fun upload(
-        @Body uploadRequest : UploadRequest
-    )
-
     @PATCH("transaksi")
     fun updateStatusTransaksi(
         @Body updateTransaksiRequest: UpdateTransaksiRequest
     ): Call<UpdateTransaksiResponse>
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 //    @GET("transaksi/{uuid}/{status}")
 //    fun getTransaksiHistory1(
 //        @Path("uuid") uuid : String,
 //        @Path("status") status : String,
 //    ) : Call<List<TransaksiResponseItem>>
 
-
     @GET("transaksi/{uuid}")
     fun getTransaksiHistory(
         @Path("uuid") uuid : String
     ) : Call<List<TransaksiResponseItem>>
 }
+<<<<<<< Updated upstream
 
 data class UploadRequest (
     val image : File
 )
+=======
+>>>>>>> Stashed changes

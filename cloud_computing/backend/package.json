@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@google-cloud/storage": "^6.11.0",
     "argon2": "^0.30.3",
     "connect-session-sequelize": "^7.1.7",
     "cors": "^2.8.5",
