@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import com.bangkit.ewaste.R
 import com.bangkit.ewaste.databinding.FragmentHomeBinding
 import com.bangkit.ewaste.ui.customviews.CustomDialogFragment
+import com.bangkit.ewaste.ui.edutron.EduTronActivity
 import com.bangkit.ewaste.ui.form.FormActivity
 import com.bangkit.ewaste.ui.history.HistoryActivity
 import com.bangkit.ewaste.utils.EcoViewModelFactory
@@ -59,6 +60,9 @@ class HomeFragment : Fragment() {
         }
         binding.btnHistory.setOnClickListener {
             startActivity(Intent(requireContext(), HistoryActivity::class.java))
+        }
+        binding.btnEdutron.setOnClickListener{
+            startActivity(Intent(requireContext(), EduTronActivity::class.java))
         }
 
     }

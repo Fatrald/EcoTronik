@@ -286,7 +286,7 @@ class EcoRepository(private val context: Context, private val apiService: ApiSer
         })
     }
 
-<<<<<<< Updated upstream
+
 //    fun getTransaksiByStatus(uuid : String, status : String){
 //        val call = apiService.getTransaksiByStatus(uuid, status)
 //        call.enqueue(object : Callback<List<TransaksiResponseItem>>{
@@ -345,9 +345,9 @@ class EcoRepository(private val context: Context, private val apiService: ApiSer
 //            }
 //        }
 
-=======
+
     fun upload(image : File){
 
     }
->>>>>>> Stashed changes
+
 }

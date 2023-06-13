@@ -292,8 +292,8 @@
 
     <ImageView
         android:id="@+id/menu1"
-        android:layout_width="700px"
-        android:layout_height="500px"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/background_content2"
         android:contentDescription="@string/info"
@@ -304,8 +304,8 @@
 
     <ImageView
         android:id="@+id/menu2"
-        android:layout_width="700px"
-        android:layout_height="500px"
+        android:layout_width="700dp"
+        android:layout_height="200dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/background_content2"
@@ -316,13 +316,13 @@
 
     <ImageView
         android:id="@+id/menu3"
-        android:layout_width="700px"
-        android:layout_height="500px"
-        android:layout_marginTop="24dp"
+        android:layout_width="700dp"
+        android:layout_height="200dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/background_content2"
         android:contentDescription="@string/info"
-        android:src="@drawable/content3"
+        android:src="@drawable/slider3"
         app:layout_constraintStart_toEndOf="@id/menu2"
         app:layout_constraintTop_toBottomOf="@id/layout_content" />
 
