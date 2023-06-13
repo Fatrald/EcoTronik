@@ -1,6 +1,7 @@
 package com.bangkit.ewaste.ui.home
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +11,9 @@ import androidx.fragment.app.viewModels
 import com.bangkit.ewaste.R
 import com.bangkit.ewaste.databinding.FragmentHomeBinding
 import com.bangkit.ewaste.ui.customviews.CustomDialogFragment
+import com.bangkit.ewaste.ui.edutron.EduTronActivity
 import com.bangkit.ewaste.ui.form.FormActivity
+import com.bangkit.ewaste.ui.history.HistoryActivity
 import com.bangkit.ewaste.utils.EcoViewModelFactory
 
 class HomeFragment : Fragment() {
@@ -44,6 +47,7 @@ class HomeFragment : Fragment() {
             binding.apply {
                 tvName.text = user.nama.uppercase()
                 tvEwastePoint.text = getString(R.string.ecopoint, user.jmlPoint)
+                tvEwasteTransaction.text = user.transaksi?.count.toString()
             }
         }
 
@@ -53,6 +57,12 @@ class HomeFragment : Fragment() {
         }
         binding.btnForm.setOnClickListener {
             FormActivity.start(requireContext(), "manual")
+        }
+        binding.btnHistory.setOnClickListener {
+            startActivity(Intent(requireContext(), HistoryActivity::class.java))
+        }
+        binding.btnEdutron.setOnClickListener{
+            startActivity(Intent(requireContext(), EduTronActivity::class.java))
         }
 
     }

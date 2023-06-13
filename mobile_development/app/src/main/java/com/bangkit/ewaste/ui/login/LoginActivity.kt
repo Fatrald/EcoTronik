@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.ViewModelProvider
-import com.bangkit.ewaste.MainActivity
 import com.bangkit.ewaste.data.response.user.LoginRequest
 import com.bangkit.ewaste.databinding.ActivityLoginBinding
 import com.bangkit.ewaste.ui.registration.RegistrationActivity

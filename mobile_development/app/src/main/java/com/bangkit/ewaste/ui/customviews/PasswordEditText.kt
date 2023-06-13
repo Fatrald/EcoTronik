@@ -29,7 +29,6 @@ class PasswordEditText : AppCompatEditText {
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-        hint = context.getString(R.string.input_password)
     }
 
     private fun init() {

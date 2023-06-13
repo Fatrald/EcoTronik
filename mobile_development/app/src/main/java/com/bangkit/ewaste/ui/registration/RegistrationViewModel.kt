@@ -17,21 +17,7 @@ import retrofit2.Response
 class RegistrationViewModel (private val Repository: EcoRepository) : ViewModel() {
 
     fun registerUser(nama: String, email: String, password: String, confPassword: String) {
-        Repository.registerUser(nama, email, password, confPassword) { success ->
-            if (success) {
-                // Registration successful, handle the response here
-                // Perform any necessary actions or update the UI
-
-                // For example, you can show a toast message
-                showToast("Registration successful")
-            } else {
-                // Registration failed, handle the error here
-                // You can display an error message or perform error-specific actions
-
-                // For example, you can show an error message
-                showError("Registration failed")
-            }
-        }
+        Repository.registerUser(nama, email, password, confPassword)
     }
 
     private fun showToast(message: String) {
