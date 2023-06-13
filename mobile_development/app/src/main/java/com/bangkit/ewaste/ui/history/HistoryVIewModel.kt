@@ -10,7 +10,9 @@ class HistoryViewModel(private val repository: EcoRepository) : ViewModel() {
 
     val listHistory = repository.listHistory
     val filteredTransaksi = MutableLiveData<List<TransaksiResponseItem>>()
-
+    init {
+        filterTransactionsByStatus("semua") // Set the initial filtered data to all transactions
+    }
     fun getTransaksiHistory(uuid: String) {
         repository.getTransactionHistory(uuid)
     }

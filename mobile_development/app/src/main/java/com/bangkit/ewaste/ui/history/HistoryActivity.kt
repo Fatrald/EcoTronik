@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.ewaste.databinding.ActivityHistoryBinding
@@ -15,7 +16,7 @@ import com.bangkit.ewaste.utils.SharedPreferences
 class HistoryActivity : AppCompatActivity() {
     private lateinit var historyViewModel: HistoryViewModel
     private lateinit var binding: ActivityHistoryBinding
-
+    private lateinit var emptyTextView: TextView
     private lateinit var uuid: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,10 +32,15 @@ class HistoryActivity : AppCompatActivity() {
     }
 
     private fun setupSpinner() {
+
         val options = arrayOf("semua", "menunggu", "selesai") // Replace with your desired options
+        val defaultStatus = "semua"
+        val defaultStatusIndex = options.indexOf(defaultStatus)
+        binding.filterSpinner.setSelection(defaultStatusIndex)
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, options)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.filterSpinner.adapter = adapter
+
 
         binding.filterSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
@@ -60,14 +66,21 @@ class HistoryActivity : AppCompatActivity() {
     }
 
     private fun getHistory() {
-
+        emptyTextView= binding.emptyTextView
         val uuid = historyViewModel.getUUID()
         historyViewModel.getTransaksiHistory(uuid)
+        historyViewModel.filterTransactionsByStatus("semua")
         historyViewModel.filteredTransaksi.observe(this) { transactions ->
             val layoutManager = LinearLayoutManager(this)
             val adapter = HistoryAdapter(transactions)
             binding.rvTransaction.layoutManager = layoutManager
             binding.rvTransaction.adapter = adapter
+
+            if (transactions.isEmpty()) {
+                emptyTextView.visibility = View.VISIBLE
+            } else {
+                emptyTextView.visibility = View.GONE
+            }
         }
     }
 
