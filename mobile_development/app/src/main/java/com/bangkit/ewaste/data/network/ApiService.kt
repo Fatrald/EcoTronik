@@ -64,10 +64,6 @@ interface ApiService {
         @Body updateTransaksiRequest: UpdateTransaksiRequest
     ): Call<UpdateTransaksiResponse>
 
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 //    @GET("transaksi/{uuid}/{status}")
 //    fun getTransaksiHistory1(
 //        @Path("uuid") uuid : String,
@@ -79,10 +75,4 @@ interface ApiService {
         @Path("uuid") uuid : String
     ) : Call<List<TransaksiResponseItem>>
 }
-<<<<<<< Updated upstream
 
-data class UploadRequest (
-    val image : File
-)
-=======
->>>>>>> Stashed changes
