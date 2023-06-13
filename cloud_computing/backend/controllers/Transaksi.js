@@ -55,6 +55,7 @@ export const getTransaksiByStatus = async (req, res) => {
         point: point,
         jmlh: data.jmlh,
       });
+      result.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     }
     res.status(200).json(result);
   } catch (error) {

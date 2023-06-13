@@ -74,13 +74,6 @@ class FormActivity : AppCompatActivity() {
             }
         }
 
-//        binding.btnSetor.setOnClickListener {
-//            formViewModel.listTransaksi.observe(this) {data ->
-//                data.map {
-//                    formViewModel.submitForm(it.uuid, "proses")
-//                }
-//            }
-//        }
 
 
     }

@@ -14,6 +14,7 @@ import retrofit2.http.Headers
 import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Path
+import java.io.File
 
 interface ApiService {
 
@@ -60,11 +61,17 @@ interface ApiService {
         @Body transaksiRequest : TransaksiRequest
     ) : Call<PostTransaksiResponse>
 
+    @POST("predict")
+    fun upload(
+        @Body uploadRequest : UploadRequest
+    )
+
     @PATCH("transaksi")
     fun updateStatusTransaksi(
         @Body updateTransaksiRequest: UpdateTransaksiRequest
     ): Call<UpdateTransaksiResponse>
 
+<<<<<<< Updated upstream
 //    @GET("transaksi/{uuid}/{status}")
 //    fun getTransaksiHistory1(
 //        @Path("uuid") uuid : String,
@@ -77,3 +84,10 @@ interface ApiService {
         @Path("uuid") uuid : String
     ) : Call<List<TransaksiResponseItem>>
 }
+=======
+}
+
+data class UploadRequest (
+    val image : File
+)
+>>>>>>> Stashed changes
