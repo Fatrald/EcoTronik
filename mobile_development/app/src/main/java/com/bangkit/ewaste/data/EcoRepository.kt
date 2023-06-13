@@ -20,6 +20,14 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import com.google.gson.Gson
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 
 class EcoRepository(private val context: Context, private val apiService: ApiService) {
@@ -204,7 +212,7 @@ class EcoRepository(private val context: Context, private val apiService: ApiSer
         })
     }
 
-    fun getEcotronikById(id : String) {
+    fun getEcotronikById(id : Int) {
         val call = apiService.getEcotronikById(id)
         call.enqueue(object : Callback<EcotronikResponseItem>{
             override fun onResponse(

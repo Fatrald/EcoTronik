@@ -1,8 +1,6 @@
 package com.bangkit.ewaste.ui.customviews
 
-import android.content.Context
 import android.content.Intent
-import android.graphics.Camera
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,19 +10,28 @@ import android.widget.ImageButton
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
-import androidx.navigation.fragment.NavHostFragment
 import com.bangkit.ewaste.R
-import com.bangkit.ewaste.ui.form.FormActivity
 import com.bangkit.ewaste.ui.post.CameraActivity
 import com.bangkit.ewaste.ui.post.PostWasteActivity
 import com.bangkit.ewaste.utils.ConstVal.KEY_FORM
 import com.bangkit.ewaste.utils.ConstVal.KEY_SELECTED_IMAGE_URI
 import com.bangkit.ewaste.utils.ConstVal.REQUEST_CODE
 import com.bangkit.ewaste.utils.uriToFile
+import com.google.auth.oauth2.GoogleCredentials
+import com.google.cloud.storage.BlobInfo
+import com.google.cloud.storage.StorageOptions
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.io.File
+import java.io.FileInputStream
+import java.io.InputStream
 
+@Suppress("DEPRECATION")
 class CustomDialogFragment : DialogFragment() {
     private var uploadFile: File? = null
+    private lateinit var fullPath : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +65,7 @@ class CustomDialogFragment : DialogFragment() {
     }
 
 
+    @OptIn(DelicateCoroutinesApi::class)
     private val launchIntentGallery = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -66,6 +74,23 @@ class CustomDialogFragment : DialogFragment() {
             val file = uriToFile(selectedImg, requireContext())
             uploadFile = file
 //            SEND IMAGE TO POST WASTE
+            GlobalScope.launch(Dispatchers.IO) {
+                val bucketUrl = "https://storage.googleapis.com/"
+                val bucketName = "eco-tronik"
+                val folderName = "ewaste"
+                val photoFileName = file.name
+                val photoFilePath = file.absolutePath
+                // Set up Google Cloud Storage client
+                val stream : InputStream = resources.openRawResource(R.raw.capstone)
+                val credential = GoogleCredentials.fromStream(stream)
+                val storage = StorageOptions.newBuilder().setCredentials(credential).build().service
+                // Create a blob ID for the photo file
+                val blobName = "$folderName/$photoFileName"
+                val blobInfo = BlobInfo.newBuilder(bucketName, blobName).build()
+                // Upload the photo file to the bucket
+                storage.create(blobInfo, FileInputStream(photoFilePath))
+                fullPath = "$bucketUrl$bucketName/$blobName"
+            }
             val intent = Intent(requireContext(), PostWasteActivity::class.java)
             intent.putExtra(KEY_SELECTED_IMAGE_URI, file.toURI().toString())
             startActivityForResult(intent, REQUEST_CODE)
