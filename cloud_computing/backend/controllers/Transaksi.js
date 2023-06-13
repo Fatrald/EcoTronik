@@ -101,6 +101,23 @@ export const createTransaksi = async (req, res) => {
   }
 };
 
+export const createTransaksiByImage = async (req, res) => {
+  const {uuid, path} = req.body;
+  try {
+    const user = await Users.findOne({
+      where: { uuid: uuid },
+    });
+    await Transaksi.create({
+      path: path,
+      userId: user.id
+    });
+    res.status(201).json({msg: "Berhasil Melakukan Transaksi"});
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: error.message});
+  }
+};
+
 export const updateTransaksi = async (req, res) => {
   const { uuid, status } = req.body;
   const transaksi = await Transaksi.findOne({
