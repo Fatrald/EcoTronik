@@ -19,8 +19,4 @@ interface ApiModel {
         @Part image : MultipartBody.Part
     ) : Call<PredictResponse>
 
-    @GET("elektronik/{id}")
-    fun getEcotronikById(
-        @Path("id") id : Int,
-    ) : Call<EcotronikResponseItem>
 }

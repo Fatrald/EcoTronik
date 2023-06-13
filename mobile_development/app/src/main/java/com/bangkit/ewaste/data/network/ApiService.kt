@@ -2,6 +2,7 @@ package com.bangkit.ewaste.data.network
 
 import com.bangkit.ewaste.data.response.ecotronik.EcotronikResponseItem
 import com.bangkit.ewaste.data.response.transaksi.TransaksiByIdStatusItem
+import com.bangkit.ewaste.data.response.transaksi.TransaksiByImageRequest
 import com.bangkit.ewaste.data.response.transaksi.TransaksiResponseItem
 import com.bangkit.ewaste.data.response.transaksi.UpdateTransaksiRequest
 import com.bangkit.ewaste.data.response.transaksi.UpdateTransaksiResponse
@@ -74,5 +75,10 @@ interface ApiService {
     fun getTransaksiHistory(
         @Path("uuid") uuid : String
     ) : Call<List<TransaksiResponseItem>>
+
+    @POST("transaksi/image")
+    fun createTransaksiByImage(
+        @Body request: TransaksiByImageRequest
+    ): Call<UpdateTransaksiResponse>
 }
 

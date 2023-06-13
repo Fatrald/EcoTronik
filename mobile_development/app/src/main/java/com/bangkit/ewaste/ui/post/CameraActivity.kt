@@ -116,23 +116,6 @@ class CameraActivity : AppCompatActivity() {
             object : ImageCapture.OnImageSavedCallback {
                 override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
 
-                    GlobalScope.launch(Dispatchers.IO) {
-                        val bucketUrl = "https://storage.googleapis.com/"
-                        val bucketName = "eco-tronik"
-                        val folderName = "ewaste"
-                        val photoFileName = photoFile.name
-                        val photoFilePath = photoFile.absolutePath
-                        // Set up Google Cloud Storage client
-                        val stream : InputStream = resources.openRawResource(R.raw.capstone)
-                        val credential = GoogleCredentials.fromStream(stream)
-                        val storage = StorageOptions.newBuilder().setCredentials(credential).build().service
-                        // Create a blob ID for the photo file
-                        val blobName = "$folderName/$photoFileName"
-                        val blobInfo = BlobInfo.newBuilder(bucketName, blobName).build()
-                        // Upload the photo file to the bucket
-                        storage.create(blobInfo, FileInputStream(photoFilePath))
-                        fullPath = "$bucketUrl$bucketName/$blobName"
-                    }
                     val intent = Intent(this@CameraActivity, PostWasteActivity::class.java)
                     intent.putExtra(KEY_PICTURE, photoFile)
                     intent.putExtra(

@@ -15,4 +15,12 @@ class PostWasteViewModel(private val modelRepository: ModelRepository) : ViewMod
     fun getElektronnikById(id : Int){
         modelRepository.getEcotronikById(id)
     }
+
+    fun createTransaksiByImage(uuid: String, elektronikId: Int, path: String) {
+        modelRepository.createTransaksiByImage(uuid, elektronikId, path)
+    }
+
+    fun getUUID() : String {
+        return modelRepository.getUUID()
+    }
 }

@@ -1,13 +1,20 @@
 package com.bangkit.ewaste.data
 
+import android.content.ContentValues
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.bangkit.ewaste.MainActivity
 import com.bangkit.ewaste.data.network.ApiModel
 import com.bangkit.ewaste.data.network.ApiService
 import com.bangkit.ewaste.data.response.PredictResponse
 import com.bangkit.ewaste.data.response.ecotronik.EcotronikResponseItem
+import com.bangkit.ewaste.data.response.transaksi.TransaksiByImageRequest
+import com.bangkit.ewaste.data.response.transaksi.UpdateTransaksiResponse
+import com.bangkit.ewaste.ui.login.LoginActivity
+import com.bangkit.ewaste.utils.SharedPreferences
 import com.bangkit.ewaste.utils.showToast
 import okhttp3.MultipartBody
 import retrofit2.Call
@@ -59,5 +66,34 @@ class ModelRepository (private val context : Context, private val apiModel: ApiM
                 context.showToast("Data Gagal Dimuat, Periksa Koneksi Anda")
             }
         })
+    }
+
+    fun createTransaksiByImage(uuid: String, elektronikId: Int, path: String) {
+        val request = TransaksiByImageRequest("menunggu", "1", uuid, elektronikId, path)
+        val call = apiService.createTransaksiByImage(request)
+        call.enqueue(object : Callback<UpdateTransaksiResponse>{
+            override fun onResponse(
+                call: Call<UpdateTransaksiResponse>,
+                response: Response<UpdateTransaksiResponse>
+            ) {
+                if (response.isSuccessful){
+                    val intent = Intent(context, MainActivity::class.java)
+                    context.showToast(response.body()?.msg.toString())
+                    context.startActivity(intent)
+                } else {
+                    Log.e("CreateTransaksiByImage", "Failed : $response")
+                }
+            }
+
+            override fun onFailure(call: Call<UpdateTransaksiResponse>, t: Throwable) {
+                context.showToast("Data Gagal Dimuat, Periksa Koneksi Anda")
+            }
+        })
+    }
+
+    fun getUUID(): String {
+        val sharedPref = SharedPreferences.initPreference(context, "localPref")
+        val uuid = sharedPref.getString("token", "")
+        return uuid.toString()
     }
 }

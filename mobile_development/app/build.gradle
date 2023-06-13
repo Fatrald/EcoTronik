@@ -67,7 +67,8 @@ dependencies {
 //  BUCKET
     implementation 'com.google.cloud:google-cloud-storage:2.22.3'
     implementation 'com.google.auth:google-auth-library-oauth2-http:1.16.0'
-
+//    COROUTING
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
 
     implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'

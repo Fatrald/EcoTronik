@@ -13,6 +13,7 @@ import androidx.fragment.app.DialogFragment
 import com.bangkit.ewaste.R
 import com.bangkit.ewaste.ui.post.CameraActivity
 import com.bangkit.ewaste.ui.post.PostWasteActivity
+import com.bangkit.ewaste.utils.ConstVal
 import com.bangkit.ewaste.utils.ConstVal.KEY_FORM
 import com.bangkit.ewaste.utils.ConstVal.KEY_SELECTED_IMAGE_URI
 import com.bangkit.ewaste.utils.ConstVal.REQUEST_CODE
@@ -74,26 +75,11 @@ class CustomDialogFragment : DialogFragment() {
             val file = uriToFile(selectedImg, requireContext())
             uploadFile = file
 //            SEND IMAGE TO POST WASTE
-            GlobalScope.launch(Dispatchers.IO) {
-                val bucketUrl = "https://storage.googleapis.com/"
-                val bucketName = "eco-tronik"
-                val folderName = "ewaste"
-                val photoFileName = file.name
-                val photoFilePath = file.absolutePath
-                // Set up Google Cloud Storage client
-                val stream : InputStream = resources.openRawResource(R.raw.capstone)
-                val credential = GoogleCredentials.fromStream(stream)
-                val storage = StorageOptions.newBuilder().setCredentials(credential).build().service
-                // Create a blob ID for the photo file
-                val blobName = "$folderName/$photoFileName"
-                val blobInfo = BlobInfo.newBuilder(bucketName, blobName).build()
-                // Upload the photo file to the bucket
-                storage.create(blobInfo, FileInputStream(photoFilePath))
-                fullPath = "$bucketUrl$bucketName/$blobName"
-            }
             val intent = Intent(requireContext(), PostWasteActivity::class.java)
+            intent.putExtra(ConstVal.KEY_PICTURE, uploadFile)
             intent.putExtra(KEY_SELECTED_IMAGE_URI, file.toURI().toString())
             startActivityForResult(intent, REQUEST_CODE)
+            dismiss()
         }
     }
 }
