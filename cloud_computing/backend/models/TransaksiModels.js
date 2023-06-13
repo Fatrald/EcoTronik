@@ -44,6 +44,13 @@ const Transaksi = db.define(
         notEmpty: true,
       },
     },
+    path: {
+      type: DataTypes.STRING,
+      allownull: false,
+      validate: {
+        notEmpty: true,
+      }
+    },
   },
   {
     freezeTableName: true,
