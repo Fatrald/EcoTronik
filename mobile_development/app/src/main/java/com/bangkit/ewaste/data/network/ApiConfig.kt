@@ -13,10 +13,7 @@ object ApiConfig {
 
         val retrofit = Retrofit.Builder()
             .baseUrl("https://capstone-ecotronik.et.r.appspot.com/")
-<<<<<<< Updated upstream
-=======
 //            .baseUrl("http://10.0.2.2:3000/")
->>>>>>> Stashed changes
             .addConverterFactory(GsonConverterFactory.create())
             .client(
                 OkHttpClient.Builder()

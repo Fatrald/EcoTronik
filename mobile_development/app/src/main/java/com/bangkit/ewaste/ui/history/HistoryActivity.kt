@@ -25,9 +25,9 @@ class HistoryActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupAction()
+        getHistory()
         getUUID()
         setupSpinner()
-        getHistory()
 
     }
 
@@ -69,7 +69,7 @@ class HistoryActivity : AppCompatActivity() {
         emptyTextView= binding.emptyTextView
         val uuid = historyViewModel.getUUID()
         historyViewModel.getTransaksiHistory(uuid)
-       historyViewModel.filterTransactionsByStatus("semua")
+        historyViewModel.filterTransactionsByStatus("semua")
         historyViewModel.filteredTransaksi.observe(this) { transactions ->
             val layoutManager = LinearLayoutManager(this)
             val adapter = HistoryAdapter(transactions)
