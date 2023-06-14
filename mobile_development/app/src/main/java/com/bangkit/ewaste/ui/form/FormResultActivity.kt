@@ -24,6 +24,11 @@ class FormResultActivity : AppCompatActivity() {
         val formattedDate = dateFormat.format(Date(currentTimeMillis))
 
         binding.tvDateValue.text = formattedDate
+        val intent = intent
+        val wasteCount = intent.getStringExtra("wasteCount")
+        val wastePoint = intent.getStringExtra("wastePoint")
+        binding.tvSumValue.text = wasteCount
+        binding.tvPointValue.text = "$wastePoint EP"
     }
 
     override fun onBackPressed() {

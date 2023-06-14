@@ -1,6 +1,7 @@
 package com.bangkit.ewaste.ui.post
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -11,9 +12,11 @@ import com.bangkit.ewaste.MainActivity
 import com.bangkit.ewaste.R
 import com.bangkit.ewaste.databinding.ActivityPostWasteBinding
 import com.bangkit.ewaste.ui.form.FormActivity
+import com.bangkit.ewaste.ui.form.FormResultActivity
 import com.bangkit.ewaste.utils.ConstVal.KEY_PICTURE
 import com.bangkit.ewaste.utils.ConstVal.KEY_SELECTED_IMAGE_URI
 import com.bangkit.ewaste.utils.EcoViewModelFactory
+import com.bangkit.ewaste.utils.rotateFile
 import com.google.auth.oauth2.GoogleCredentials
 import com.google.cloud.storage.BlobInfo
 import com.google.cloud.storage.StorageOptions
@@ -36,7 +39,7 @@ class PostWasteActivity : AppCompatActivity() {
     private lateinit var binding : ActivityPostWasteBinding
     private lateinit var viewModel : PostWasteViewModel
     private lateinit var fullpath : String
-    private lateinit var eWasteId : String
+    private lateinit var eWastePoint : String
 
     @SuppressLint("StringFormatMatches")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,6 +52,7 @@ class PostWasteActivity : AppCompatActivity() {
         val intent = intent
 
         val pictureFile = intent.getSerializableExtra(KEY_PICTURE) as? File
+        pictureFile?.let { rotateFile(it) }
         val imageUriString = intent.getStringExtra(KEY_SELECTED_IMAGE_URI)
 
         viewModel.ewasteId.observe(this@PostWasteActivity){
@@ -58,6 +62,7 @@ class PostWasteActivity : AppCompatActivity() {
                 binding.tvTitle.text = item.jenisElektronik
                 val wasteType = item.jenisElektronik
                 val EP = item.point
+                eWastePoint = EP.toString()
                 binding.tvDescription.text = getString(R.string.scan_description, wasteType, EP)
             }
         }
@@ -101,7 +106,7 @@ class PostWasteActivity : AppCompatActivity() {
                 // Launch the upload operation as a child coroutine
                 val uploadJob = launch {
                     storage.create(blobInfo, FileInputStream(photoFilePath))
-                    fullpath = "$bucketUrl$bucketName/$blobName"
+                    fullpath = "$bucketUrl$bucketName/ecotronik_$blobName"
                 }
                 // Wait for all child coroutines to complete
                 uploadJob.join()
@@ -119,6 +124,10 @@ class PostWasteActivity : AppCompatActivity() {
                 }
 
             }
+            val resultIntent = Intent(this, FormResultActivity::class.java)
+            intent.putExtra("wasteCount", "1")
+            intent.putExtra("wastePoint", eWastePoint)
+            startActivity(resultIntent)
         }
 
 

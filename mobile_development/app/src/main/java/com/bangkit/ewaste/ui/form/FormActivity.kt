@@ -14,6 +14,7 @@ import com.bangkit.ewaste.ui.customviews.TransactionSubmitListener
 import com.bangkit.ewaste.ui.post.CameraActivity
 import com.bangkit.ewaste.utils.ConstVal.KEY_FORM
 import com.bangkit.ewaste.utils.EcoViewModelFactory
+import okhttp3.internal.format
 import java.text.NumberFormat
 import java.util.Locale
 
@@ -52,12 +53,12 @@ class FormActivity : AppCompatActivity(), TransactionSubmitListener {
         }
 
         val uuid = formViewModel.getUUID()
-        formViewModel.getTransaksiByStatus(uuid, "menunggu")
 
         val adapter = FormAdapter() // Create the adapter with an initial empty list
         val layoutManager = LinearLayoutManager(this)
         binding.rvForm.layoutManager = layoutManager
         binding.rvForm.adapter = adapter
+        formViewModel.getTransaksiByStatus(uuid, "menunggu")
 
         formViewModel.listTransaksi.observe(this) { data ->
             adapter.notifyDataSetChanged()
@@ -79,7 +80,10 @@ class FormActivity : AppCompatActivity(), TransactionSubmitListener {
                 data.map {
                     formViewModel.submitForm(it.uuid, "proses")
                 }
-                FormResultActivity.start(this, "submit")
+                val intent = Intent(this, FormResultActivity::class.java)
+                intent.putExtra("wasteCount", wasteCount.toString())
+                intent.putExtra("wastePoint", formattedNumber.toString())
+                startActivity(intent)
             }
         }
 

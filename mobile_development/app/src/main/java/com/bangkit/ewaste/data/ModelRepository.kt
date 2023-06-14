@@ -69,7 +69,7 @@ class ModelRepository (private val context : Context, private val apiModel: ApiM
     }
 
     fun createTransaksiByImage(uuid: String, elektronikId: Int, path: String) {
-        val request = TransaksiByImageRequest("menunggu", "1", uuid, elektronikId, path)
+        val request = TransaksiByImageRequest("proses", "1", uuid, elektronikId, path)
         val call = apiService.createTransaksiByImage(request)
         call.enqueue(object : Callback<UpdateTransaksiResponse>{
             override fun onResponse(

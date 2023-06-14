@@ -24,6 +24,7 @@ import com.bangkit.ewaste.utils.ConstVal.KEY_PICTURE
 import com.bangkit.ewaste.utils.ConstVal.REQUEST_CODE_PERMISSIONS
 import com.bangkit.ewaste.utils.EcoViewModelFactory
 import com.bangkit.ewaste.utils.createFile
+import com.bangkit.ewaste.utils.rotateFile
 import com.bangkit.ewaste.utils.showToast
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
