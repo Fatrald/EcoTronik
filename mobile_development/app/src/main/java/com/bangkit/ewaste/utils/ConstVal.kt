@@ -16,6 +16,7 @@ object ConstVal {
     const val REQUEST_CODE = 1
     const val KEY_PICTURE = "picture"
     const val KEY_IS_BACK_CAMERA = "isBackCamera"
+    const val KEY_EWASTE = "key.ewaste"
 
     // Bundle
     const val BUNDLE_KEY_STORY = "bundle.story"

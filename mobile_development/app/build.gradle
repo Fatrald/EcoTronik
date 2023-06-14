@@ -9,6 +9,11 @@ android {
     namespace 'com.bangkit.ewaste'
     compileSdk 33
 
+    packagingOptions {
+        exclude 'META-INF/INDEX.LIST'
+        exclude 'META-INF/DEPENDENCIES'
+    }
+
     defaultConfig {
         applicationId "com.bangkit.ewaste"
         minSdk 24
@@ -55,10 +60,15 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
 //    RETROFIT
-    implementation 'com.google.code.gson:gson:2.9.0'
+    implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation "com.squareup.okhttp3:logging-interceptor:4.9.0"
+//  BUCKET
+    implementation 'com.google.cloud:google-cloud-storage:2.22.3'
+    implementation 'com.google.auth:google-auth-library-oauth2-http:1.16.0'
+//    COROUTING
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
 
     implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'

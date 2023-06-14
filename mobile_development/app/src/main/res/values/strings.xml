@@ -68,6 +68,7 @@
     <string name="title_activity_test">test</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="scan_description">Sampah %1$s terdeteksi, kamu akan mendapatkan %2$s EP jika ingin disetor!</string>
 
 
 </resources>

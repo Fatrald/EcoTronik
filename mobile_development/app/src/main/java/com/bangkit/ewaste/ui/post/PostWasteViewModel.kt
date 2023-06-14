@@ -1,7 +1,26 @@
 package com.bangkit.ewaste.ui.post
 
 import androidx.lifecycle.ViewModel
-import com.bangkit.ewaste.data.EcoRepository
+import com.bangkit.ewaste.data.ModelRepository
+import okhttp3.MultipartBody
 
-class PostWasteViewModel(ecoRepository: EcoRepository) : ViewModel() {
+class PostWasteViewModel(private val modelRepository: ModelRepository) : ViewModel() {
+    val ewasteId = modelRepository.predictValue
+    val elektronikItem = modelRepository.ecotronikItem
+
+    fun predictImage(image : MultipartBody.Part){
+        modelRepository.predictImage(image)
+    }
+
+    fun getElektronnikById(id : Int){
+        modelRepository.getEcotronikById(id)
+    }
+
+    fun createTransaksiByImage(uuid: String, elektronikId: Int, path: String) {
+        modelRepository.createTransaksiByImage(uuid, elektronikId, path)
+    }
+
+    fun getUUID() : String {
+        return modelRepository.getUUID()
+    }
 }

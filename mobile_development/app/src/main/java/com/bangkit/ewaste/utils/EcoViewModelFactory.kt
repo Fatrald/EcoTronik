@@ -3,7 +3,6 @@ package com.bangkit.ewaste.utils
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.bangkit.ewaste.data.EcoRepository
 import com.bangkit.ewaste.di.Injection
 import com.bangkit.ewaste.ui.customviews.ManualFragmentViewModel
 import com.bangkit.ewaste.ui.history.HistoryViewModel
@@ -18,9 +17,6 @@ import com.bangkit.ewaste.ui.registration.RegistrationViewModel
 class EcoViewModelFactory(private val context : Context) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
-            modelClass.isAssignableFrom(PostWasteViewModel::class.java) -> {
-                PostWasteViewModel(Injection.provideRepository(context)) as T
-            }
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
                 LoginViewModel(Injection.provideRepository(context)) as T
             }
@@ -44,6 +40,9 @@ class EcoViewModelFactory(private val context : Context) : ViewModelProvider.Fac
             }
             modelClass.isAssignableFrom(FormActivityViewModel::class.java) -> {
                 FormActivityViewModel(Injection.provideRepository(context)) as T
+            }
+            modelClass.isAssignableFrom(PostWasteViewModel::class.java) -> {
+                PostWasteViewModel(Injection.modelRepository(context)) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel Class")
         }

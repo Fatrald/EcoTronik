@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "capstone-ecotronik",
+  "private_key_id": "5080d6bde8431b7f1da539237496a2228cfd1431",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCeGTJOTL0TfFhK\nvB+Bc1e7pR9e+AeXHrgqnCGCYJ79olRZQPbBpfJAkONWL+lcfah1P75n7ppg0XNQ\n6ccOPzGgdBq9/rkRFqCwSsudW9foSBriGAIlgJe0xR8uSQf6esXmGzqBTHG6ULKf\nbh8DVf62dJ3udkVHquUYqary5bfhDFb/+YZobQUAYpN5nfLm9w+ThN9cDp/+Xmjm\nbWJZ+XPsFdKYfVaBI7VhY4baa9R9GJIkezf90Tw6CMsQCkU7tclb3oz3jLgw7ur/\n+aWmedBN+4USYSQ1DWlWQSDcy6vz4OmA05SDnL7Mru0AAWh9WQ2HjfBpf+dnykWo\nFFOKkM29AgMBAAECggEABMG6/D/IfpIYBqOeCmM3NAugo9cFmhvlVvmHST4b+oNM\nU2UmJ3xqi1vF+J1iFujRoo7OQp/wtXyyd1rupMns9dLDIo1L8deC8oWa67tMMI50\nKfJRT4yMw/Zxsjml9k4vBHXe7u38YVU1PUvEaMbJGPdC8Ij5cPxo092i/uzqI+i9\ngqHncJmq3AbK0WfrR1rG9gCkFGh8B8i4kWr0vREElDCpKa8boYRFmMQVLWL5S9cW\nuKvRwf0JypMqfcVNzO/Af4jlae10AJr28F14dKgCltCHcMHRAUhP96JjOofrErg/\nLeNPbF/OLtcAR+QMyE9nkARVkqtbw0RQ3sJyTKZCEQKBgQDVnybHfizFQXlTdSas\n9fiYj+HyZSRjMbfdcK1ifbDc+sXNQufi8TpWVdKAKcLzWyt2Y40HfVZnKsb2+7Te\nazo/Kc+yTwiBU4vttliyJ+HMCndXsR6JSm0GsjFxr5UjhPVew3UYD7DVlDkqyevr\nmNyPRV0WKGMgOQLdjQrMoia4lQKBgQC9dkcVky/lVp4Zf2H1FnE2wY/qr6cJokAm\npt2D3xW4pj2as05wCmVMpd2s8HjtZ2Cw5IqZQU0u0j5K95pq9ZXGDXBA9t0Rv3cs\nBrxNpNUtYI+XN8SuSpfp/nDQUKijfA5e57dVvXCLgkPjjETJrrwVFgp6Afs/c9Zi\nUYYnlGhuiQKBgQDEFqlEKf/yuZ0jDMCJt+eQM1MWa90w6Kx8Kjgd1n6I+fCj8Cxn\nV0NTiMgHOU5okGGe9Na570Vmwg+NG5P1LrxyynCKnp2SCRzDAcT9FDriTyEpb742\nDAl0QhG8542g4yVQ7V4Izi5mfv7S1jMnOlQLd4JxGnWTWIHW2Ob23Elq2QKBgAIJ\nwLABulUsPl0l2qbpS+R75pFuvExFO41u5BkkEDbBSw5b+W8JHZfafOz8VUCwiQC+\nJKOLaUokptjlmvqlk6vivx9jyHMFbUHC/MmVCVoInOLSjcIWOVYiD5KeG4JOtlTd\nB0Lb29cUWqia/K5yu8E6UHiJhuti0p6SI/BPD2SJAoGBAMuUGuFJvcKNvvQZOJaC\nPA0PczIMwZD4v352I0sNdkU3A+hv0rJUdq0x/Z2C+K00UMVX7K2O2TZczSiu87sx\noNPSydwqdxoU5pqugD1QQG0M0aFPfH0N5kWx9lMbN0JnV/3A17fnTgot/ivVpcH3\npb7ZBYNJWT1G6zZIlHO0nrFe\n-----END PRIVATE KEY-----\n",
+  "client_email": "capstone-ecotronik@appspot.gserviceaccount.com",
+  "client_id": "108859932312177023350",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/capstone-ecotronik%40appspot.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

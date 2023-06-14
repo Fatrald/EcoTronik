@@ -5,7 +5,7 @@ import {
   getTransaksiByStatus,
   createTransaksi,
   updateTransaksi,
-  createTransaksiByImage
+  createTransaksiByImage,
 } from "../controllers/Transaksi.js";
 
 const router = express.Router();
@@ -15,6 +15,6 @@ router.get("/transaksi/:uuid", getTransaksiByUserId);
 router.get("/transaksi/:uuid/:status", getTransaksiByStatus);
 router.post("/transaksi", createTransaksi);
 router.patch("/transaksi", updateTransaksi);
-router.post("/transaksi/:path", createTransaksiByImage);
+router.post("/transaksi/image", createTransaksiByImage);
 
 export default router;
