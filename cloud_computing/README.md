@@ -10,6 +10,11 @@ As cloud engineers, we play a role in developing APIs with the concept of CRUD (
 
 # API Endpoint
 
-ENDPOINT | METHOD | Body Sent (JSON) | Description
+ENDPOINT |    METHOD    | Body Sent (JSON) | Description,
 :-------:|:------:|:----------------:|:----------:|
-/        |   GET  |      None        | Testing Endpoint & Server
+/        |GET     |None              |Testing Endpoint & Server|
+/login   |POST & GET|Username & Password|Authentication for user|
+/users   |POST    |Nama, Email & Password|Registration for user|
+/users   |PATCH   |Nama, Alamat, Email, profile_image & no.telp | Update data for user|
+/logout  |DELETE  | None | Logout four user|
+/elektronik/:id |GET | None | Give the response about elektronik use id elektronik|
