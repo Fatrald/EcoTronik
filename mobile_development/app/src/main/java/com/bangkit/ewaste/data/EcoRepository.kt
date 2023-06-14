@@ -122,7 +122,7 @@ class EcoRepository(private val context: Context, private val apiService: ApiSer
             }
 
             override fun onFailure(call: Call<TransactionResponse>, t: Throwable) {
-                context.showToast("Data Gagal Dimuat, Periksa Koneksi Anda")
+
             }
         })
     }

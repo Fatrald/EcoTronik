@@ -118,15 +118,12 @@ class PostWasteActivity : AppCompatActivity() {
                         val uuid = viewModel.getUUID()
                         viewModel.createTransaksiByImage(uuid, id, fullpath)
                     }
-
-                    // Finish the activity
-                    finish()
                 }
 
             }
             val resultIntent = Intent(this, FormResultActivity::class.java)
-            intent.putExtra("wasteCount", "1")
-            intent.putExtra("wastePoint", eWastePoint)
+            resultIntent.putExtra("wasteCount", "1")
+            resultIntent.putExtra("wastePoint", eWastePoint)
             startActivity(resultIntent)
         }
 

@@ -49,6 +49,15 @@ class HomeFragment : Fragment() {
                 tvName.text = user.nama.uppercase()
                 tvEwastePoint.text = getString(R.string.ecopoint, user.jmlPoint)
                 tvEwasteTransaction.text = user.transaksi?.count.toString()
+                if (user.role == "admin"){
+                    btnAdmin.visibility = View.VISIBLE
+                    labelBtnAdmin.visibility = View.VISIBLE
+
+                    btnAdmin.setOnClickListener {
+//                        val intent = Intent(requireContext(), AdminActivity::class.java)
+//                        startActivity(intent)
+                    }
+                }
             }
         }
 

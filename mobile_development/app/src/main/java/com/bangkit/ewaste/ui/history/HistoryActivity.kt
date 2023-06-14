@@ -25,9 +25,9 @@ class HistoryActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupAction()
-        getHistory()
         getUUID()
         setupSpinner()
+//        getHistory()
 
     }
 

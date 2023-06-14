@@ -45,7 +45,7 @@
         <Constraint
             android:id="@+id/menu1"
             motion:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="700px"
+            android:layout_width="wrap_content"
             android:layout_height="500px"
             motion:layout_constraintTop_toBottomOf="@id/layout_content"
             motion:layout_constraintStart_toStartOf="parent"
@@ -93,7 +93,7 @@
         <Constraint
             android:id="@+id/menu1"
             motion:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="700px"
+            android:layout_width="wrap_content"
             android:layout_height="500px"
             android:layout_marginEnd="8dp"
             motion:layout_constraintTop_toBottomOf="@id/layout_content"
@@ -103,7 +103,7 @@
             android:id="@+id/menu2"
             motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="700px"
+            android:layout_width="wrap_content"
             android:layout_height="500px"
             motion:layout_constraintTop_toBottomOf="@id/layout_content"
             android:layout_marginStart="8dp"
@@ -140,14 +140,14 @@
         </Constraint>
         <Constraint
             android:id="@+id/menu1"
-            android:layout_width="700px"
+            android:layout_width="wrap_content"
             android:layout_height="500px"
             motion:layout_constraintTop_toBottomOf="@id/layout_content"
             motion:layout_constraintEnd_toStartOf="@id/menu2"
             android:layout_marginTop="24dp" />
         <Constraint
             android:id="@+id/menu2"
-            android:layout_width="700px"
+            android:layout_width="wrap_content"
             android:layout_height="500px"
             motion:layout_constraintTop_toBottomOf="@id/layout_content"
             motion:layout_constraintEnd_toStartOf="@id/menu3"
@@ -157,7 +157,7 @@
 
         <Constraint
             android:id="@+id/menu3"
-            android:layout_width="700px"
+            android:layout_width="wrap_content"
             android:layout_height="500px"
             motion:layout_constraintTop_toBottomOf="@id/layout_content"
             motion:layout_constraintStart_toStartOf="parent"

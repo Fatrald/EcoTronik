@@ -266,7 +266,9 @@
             app:layout_constraintTop_toBottomOf="@+id/textView"
             tools:ignore="MissingConstraints" />
 
+
         <TextView
+            android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/history"
@@ -276,17 +278,30 @@
             app:layout_constraintTop_toBottomOf="@id/btn_history" />
 
         <ImageButton
-            android:id="@+id/btn_null"
+            android:id="@+id/btn_admin"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_margin="20dp"
             android:background="@drawable/circle_background"
             android:contentDescription="@string/info"
             android:padding="14dp"
+            android:visibility="gone"
+            android:src="@drawable/ic_verified_24"
             app:layout_constraintEnd_toEndOf="@+id/btn_edutron"
             app:layout_constraintStart_toStartOf="@+id/btn_edutron"
             app:layout_constraintTop_toBottomOf="@+id/textView"
             tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/label_btn_admin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/admin"
+            android:visibility="gone"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/btn_admin"
+            app:layout_constraintStart_toStartOf="@+id/btn_admin"
+            app:layout_constraintTop_toBottomOf="@id/btn_history" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
