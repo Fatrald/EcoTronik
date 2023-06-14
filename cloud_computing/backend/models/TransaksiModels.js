@@ -47,9 +47,10 @@ const Transaksi = db.define(
     path: {
       type: DataTypes.STRING,
       allownull: false,
+      defaultValue: "-",
       validate: {
         notEmpty: true,
-      }
+      },
     },
   },
   {

@@ -4,9 +4,12 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.bangkit.ewaste.R
+import com.bangkit.ewaste.MainActivity
 import com.bangkit.ewaste.databinding.ActivityFormResultBinding
 import com.bangkit.ewaste.utils.ConstVal
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class FormResultActivity : AppCompatActivity() {
     private var _activityFormResultBinding : ActivityFormResultBinding? = null
@@ -16,6 +19,16 @@ class FormResultActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _activityFormResultBinding = ActivityFormResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val currentTimeMillis = System.currentTimeMillis()
+        val dateFormat = SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault())
+        val formattedDate = dateFormat.format(Date(currentTimeMillis))
+
+        binding.tvDateValue.text = formattedDate
+    }
+
+    override fun onBackPressed() {
+        MainActivity.open(this)
+        finish()
     }
 
     companion object {

@@ -7,8 +7,7 @@ import com.bangkit.ewaste.data.response.transaksi.TransaksiByIdStatusItem
 
 class FormActivityViewModel(private val repository: EcoRepository) : ViewModel() {
 
-    val listTransaksi: LiveData<List<TransaksiByIdStatusItem>> = repository.listTransaksi
-
+    val listTransaksi = repository.listTransaksi
 
     fun getTransaksiByStatus(uuid: String, status : String) {
         repository.getTransaksiByStatus(uuid, status)

@@ -26,10 +26,8 @@ class CustomDialogManualFragment : DialogFragment() {
     private lateinit var spinner: Spinner
     private lateinit var tvValue: EditText
     private lateinit var wasteUUID : String
+    private var transactionSubmitListener: TransactionSubmitListener? = null
     private val viewModel: ManualFragmentViewModel by viewModels {
-        EcoViewModelFactory(requireContext())
-    }
-    private val formViewModel : FormActivityViewModel by viewModels {
         EcoViewModelFactory(requireContext())
     }
 
@@ -105,8 +103,9 @@ class CustomDialogManualFragment : DialogFragment() {
         return builder.create()
     }
 
-    override fun onDestroyView() {
-        viewModel.ecotronik.removeObserver(Observer {  })
-        super.onDestroyView()
-    }
 }
+
+interface TransactionSubmitListener {
+    fun onTransactionSubmitted()
+}
+

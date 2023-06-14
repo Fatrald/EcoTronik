@@ -241,6 +241,7 @@ class EcoRepository(private val context: Context, private val apiService: ApiSer
                 response: Response<PostTransaksiResponse>
             ) {
                 if (response.isSuccessful){
+                    getTransaksiByStatus(userUUID, "proses")
                     context.showToast("Transaksi Berhasil Ditambahkan")
                 } else {
                     Log.e("postEcotronik","Failed : $response")
