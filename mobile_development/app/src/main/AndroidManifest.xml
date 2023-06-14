@@ -19,6 +19,9 @@
         android:theme="@style/Theme.EWaste"
         tools:targetApi="31">
         <activity
+            android:name=".ui.redeem.RedeemActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.edutron.EduTronActivity"
             android:exported="false" />
         <activity

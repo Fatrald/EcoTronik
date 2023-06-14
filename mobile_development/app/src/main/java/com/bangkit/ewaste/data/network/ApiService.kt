@@ -83,6 +83,10 @@ interface ApiService {
     fun getTransaksiHistory(
         @Path("uuid") uuid : String
     ) : Call<List<TransaksiResponseItem>>
+
+
+    @GET("users/{uuid}")
+    fun getUserPoin(@Path("uuid") uuid: String) : Call<UserResponse>
 }
 
 data class UploadRequest (
