@@ -1,5 +1,6 @@
 package com.bangkit.ewaste.ui.admin
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
@@ -18,6 +19,7 @@ class AdminActivity : AppCompatActivity() {
 
     private lateinit var viewModel : AdminViewModel
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _adminbinding = ActivityAdminBinding.inflate(layoutInflater)
@@ -33,6 +35,7 @@ class AdminActivity : AppCompatActivity() {
             adapter.notifyDataSetChanged()
             adapter.setData(data)
         }
+
 
     }
 

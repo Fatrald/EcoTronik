@@ -2,17 +2,11 @@ package com.bangkit.ewaste.ui.history
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.ewaste.adapter.HistoryAdapter
 import com.bangkit.ewaste.databinding.ActivityHistoryBinding
-import com.bangkit.ewaste.ui.admin.AdminViewModel
 import com.bangkit.ewaste.utils.EcoViewModelFactory
-import com.bangkit.ewaste.utils.SharedPreferences
 
 
 class HistoryActivity : AppCompatActivity() {
@@ -28,7 +22,8 @@ class HistoryActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupViewModel()
-        viewModel.getTransaksiUser()
+        val uuid = viewModel.getUUID()
+        viewModel.getTransaksiUser(uuid)
         viewModel.listTransaksi.observe(this){ data ->
             val adapter = HistoryAdapter(data)
             val layoutManager = LinearLayoutManager(this)

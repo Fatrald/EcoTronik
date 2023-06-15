@@ -10,8 +10,8 @@ data class UpdateUserRequest(
 )
 
 data class UpdateUserPointRequest(
-    val point: String,
-    val newPoint: Int,
+    val uuid: String,
+    val jml_point: Int,
 )
 
 

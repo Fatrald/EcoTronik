@@ -1,12 +1,17 @@
-package com.bangkit.ewaste.ui.redeem
+package com.bangkit.ewaste.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.ewaste.data.model.Poin
 import com.bangkit.ewaste.databinding.ItemRedeemBinding
+import com.bangkit.ewaste.ui.redeem.RedeemViewModel
 
-class RedeemAdapter  : RecyclerView.Adapter<RedeemAdapter.RedeemViewHolder>() {
+class RedeemAdapter(private val viewModel : RedeemViewModel)  : RecyclerView.Adapter<RedeemAdapter.RedeemViewHolder>() {
+
+    private val uuid = viewModel.getUUID()
+
     private var redeemList: List<Poin> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RedeemViewHolder {
@@ -36,10 +41,6 @@ class RedeemAdapter  : RecyclerView.Adapter<RedeemAdapter.RedeemViewHolder>() {
             binding.imageView.setImageResource(poin.imageLink)
             binding.titleTextView.text = poin.title
             binding.poinTextView.text = "${poin.poin} Poin"
-
-            binding.klaimButton.setOnClickListener {
-                // Handle button click event here
-            }
         }
     }
 }

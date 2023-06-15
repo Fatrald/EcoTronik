@@ -31,8 +31,8 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 
 class EcoRepository(private val context: Context, private val apiService: ApiService) {
-    private val _listTransaksiUser = MutableLiveData<List<TransaksiByIdStatusItem>>()
-    val listTransaksiUser : LiveData<List<TransaksiByIdStatusItem>> get() = _listTransaksiUser
+    private val _listTransaksiUser = MutableLiveData<List<TransaksiResponseItem>>()
+    val listTransaksiUser : LiveData<List<TransaksiResponseItem>> get() = _listTransaksiUser
 
     private val _listTransaksiAdmin = MutableLiveData<List<TransaksiByIdStatusItem>>()
     val listTransaksiAdmin : LiveData<List<TransaksiByIdStatusItem>> get() = _listTransaksiAdmin
@@ -47,9 +47,6 @@ class EcoRepository(private val context: Context, private val apiService: ApiSer
 
     private val _listTransaksi = MutableLiveData<List<TransaksiByIdStatusItem>>()
     val listTransaksi : LiveData<List<TransaksiByIdStatusItem>> get() = _listTransaksi
-
-    private val _listHistory = MutableLiveData<List<TransaksiResponseItem>>()
-    val listHistory: LiveData<List<TransaksiResponseItem>> get() = _listHistory
 
     fun registerUser(nama: String, email: String, password: String, confPassword: String) {
         val registrationRequest = RegistrationRequest(nama, email, password, confPassword)
@@ -162,9 +159,9 @@ class EcoRepository(private val context: Context, private val apiService: ApiSer
                 response: Response<UpdateUserResponse>
             ) {
                 if (response.isSuccessful) {
-                    context.showToast(response.body()?.msg.toString())
+                    context.showToast("Terima Kasih")
                 } else {
-                    context.showToast("Update User Gagal")
+                    context.showToast("Submit Gagal")
                 }
             }
 
@@ -175,45 +172,17 @@ class EcoRepository(private val context: Context, private val apiService: ApiSer
     }
 
 
-//    fun getTransactionHistory(uuid : String, status : String){
-//        val call = apiService.getTransaksiHistory(uuid, status)
-//        call.enqueue(object : Callback<List<TransaksiResponseItem>> {
-//            override fun onResponse(
-//                call: Call<List<TransaksiResponseItem>>,
-//                response: Response<List<TransaksiResponseItem>>
-//            ) {
-//                if (response.isSuccessful) {
-//                    val transactionList = response.body() ?: emptyList()
-//                    _listHistory.value = transactionList
-//                } else {
-//                    Log.e("getTransaksiByStatus", "failed : ${response.message()}")
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<List<TransaksiResponseItem>>, t: Throwable) {
-//                context.showToast("Data Gagal Dimuat, Periksa Koneksi Anda")
-//            }
-//        })
-//
-//    }
-
-    fun getTransactionHistory(uuid : String){
-        val call = apiService.getTransaksiHistory(uuid)
-        call.enqueue(object : Callback<List<TransaksiResponseItem>> {
+    fun getTransaksiByUUID(uuid : String){
+        val call = apiService.getTransactionByUUID(uuid)
+        call.enqueue(object : Callback<List<TransaksiResponseItem>>{
             override fun onResponse(
                 call: Call<List<TransaksiResponseItem>>,
                 response: Response<List<TransaksiResponseItem>>
             ) {
-                if (response.isSuccessful) {
-                    val transactionList = response.body() ?: emptyList()
-                    _listHistory.value = transactionList
-                } else {
-                    Log.e("getTransaksiByStatus", "failed : ${response.message()}")
-                }
+                _listTransaksiUser.value = response.body()
             }
-
             override fun onFailure(call: Call<List<TransaksiResponseItem>>, t: Throwable) {
-                context.showToast("Data Gagal Dimuat, Periksa Koneksi Anda")
+                TODO("Not yet implemented")
             }
         })
 

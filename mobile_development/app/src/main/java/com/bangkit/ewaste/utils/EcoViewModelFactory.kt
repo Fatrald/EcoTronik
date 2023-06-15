@@ -13,6 +13,7 @@ import com.bangkit.ewaste.ui.login.LoginViewModel
 import com.bangkit.ewaste.ui.post.PostWasteViewModel
 import com.bangkit.ewaste.ui.profile.EditProfileViewModel
 import com.bangkit.ewaste.ui.profile.ProfileViewModel
+import com.bangkit.ewaste.ui.redeem.RedeemViewModel
 import com.bangkit.ewaste.ui.registration.RegistrationViewModel
 
 class EcoViewModelFactory(private val context : Context) : ViewModelProvider.Factory {
@@ -47,6 +48,9 @@ class EcoViewModelFactory(private val context : Context) : ViewModelProvider.Fac
             }
             modelClass.isAssignableFrom(AdminViewModel::class.java) -> {
                 AdminViewModel(Injection.provideRepository(context)) as T
+            }
+            modelClass.isAssignableFrom(RedeemViewModel::class.java) -> {
+                RedeemViewModel(Injection.provideRepository(context)) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel Class")
         }

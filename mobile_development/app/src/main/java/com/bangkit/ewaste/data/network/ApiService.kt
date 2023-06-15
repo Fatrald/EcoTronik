@@ -49,10 +49,10 @@ interface ApiService {
         @Path("id") id : Int,
     ) : Call<EcotronikResponseItem>
 
-//    @GET("transaksi/{uuid}")
-//    fun getTransactionByUUID(
-//        @Path("uuid") uuid: String
-//    ): Call<TransactionResponse>
+    @GET("transaksi/{uuid}")
+    fun getTransactionByUUID(
+        @Path("uuid") uuid: String
+    ): Call<List<TransaksiResponseItem>>
 
     @GET("transaksi/{uuid}/{status}")
     fun getTransaksiByStatus(
