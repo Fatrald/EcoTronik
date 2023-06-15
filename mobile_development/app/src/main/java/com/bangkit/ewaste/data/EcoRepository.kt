@@ -67,6 +67,7 @@ class EcoRepository(private val context: Context, private val apiService: ApiSer
         })
     }
 
+
     fun loginUser(email : String, password : String) {
         val loginRequest = LoginRequest(email, password)
         val call = apiService.login(loginRequest)
@@ -149,6 +150,27 @@ class EcoRepository(private val context: Context, private val apiService: ApiSer
             }
         })
     }
+
+    fun updatePoint(uuid: String, updateUserPointRequest: UpdateUserPointRequest){
+        val call = apiService.updateUserPoint(uuid, updateUserPointRequest)
+        call.enqueue(object : Callback<UpdateUserResponse> {
+            override fun onResponse(
+                call: Call<UpdateUserResponse>,
+                response: Response<UpdateUserResponse>
+            ) {
+                if (response.isSuccessful) {
+                    context.showToast(response.body()?.msg.toString())
+                } else {
+                    context.showToast("Update User Gagal")
+                }
+            }
+
+            override fun onFailure(call: Call<UpdateUserResponse>, t: Throwable) {
+                context.showToast("Data Gagal Dimuat, Periksa Koneksi Anda")
+            }
+        })
+    }
+
 
 //    fun getTransactionHistory(uuid : String, status : String){
 //        val call = apiService.getTransaksiHistory(uuid, status)
@@ -381,5 +403,7 @@ class EcoRepository(private val context: Context, private val apiService: ApiSer
             }
         })
     }
+
+
 
 }

@@ -30,4 +30,7 @@ data class TransaksiByIdStatusItem(
 
 	@field:SerializedName("photoUrl")
 	val path : String,
+
+	@field:SerializedName("uuidUser")
+	val uuidUser : String,
 )

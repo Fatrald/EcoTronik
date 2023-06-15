@@ -35,6 +35,12 @@ interface ApiService {
         @Body updateUserRequest: UpdateUserRequest
     ) : Call<UpdateUserResponse>
 
+    @PATCH("users/{uuid}")
+    fun updateUserPoint(
+        @Path("uuid") uuid: String,
+        @Body updateUserPointRequest: UpdateUserPointRequest
+    ) : Call<UpdateUserResponse>
+
     @GET("elektronik")
     fun getEcotronik() : Call<List<EcotronikResponseItem>>
 
@@ -65,20 +71,11 @@ interface ApiService {
         @Body updateTransaksiRequest: UpdateTransaksiRequest
     ): Call<UpdateTransaksiResponse>
 
-//    @GET("transaksi/{uuid}/{status}")
-//    fun getTransaksiHistory1(
-//        @Path("uuid") uuid : String,
-//        @Path("status") status : String,
-//    ) : Call<List<TransaksiResponseItem>>
 
     @GET("transaksi/{uuid}")
     fun getTransaksiHistory(
         @Path("uuid") uuid : String
     ) : Call<List<TransaksiResponseItem>>
-
-
-    @GET("users/{uuid}")
-    fun getUserPoin(@Path("uuid") uuid: String) : Call<UserResponse>
 
     @POST("transaksi/image")
     fun createTransaksiByImage(

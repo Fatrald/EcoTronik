@@ -28,7 +28,7 @@ class AdminActivity : AppCompatActivity() {
         val layoutManager = LinearLayoutManager(this)
         binding.rvTransaksi.layoutManager = layoutManager
         binding.rvTransaksi.adapter = adapter
-        viewModel.getTransaksiAdmin("menunggu")
+        viewModel.getTransaksiAdmin("proses")
         viewModel.listTransaksi.observe(this){data ->
             adapter.notifyDataSetChanged()
             adapter.setData(data)

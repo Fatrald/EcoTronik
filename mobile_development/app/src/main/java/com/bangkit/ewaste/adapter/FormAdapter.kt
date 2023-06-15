@@ -49,6 +49,7 @@ class FormAdapter : RecyclerView.Adapter<FormAdapter.ViewHolder>() {
                 .placeholder(R.drawable.ic_image) // Optional: placeholder image while loading
                 .error(R.drawable.ic_image) // Optional: image to show if an error occurs
                 .into(itemImage)
+            btnSubmit.visibility = View.GONE
         }
     }
 }

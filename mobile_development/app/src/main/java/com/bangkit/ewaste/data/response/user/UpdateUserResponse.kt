@@ -6,8 +6,15 @@ data class UpdateUserRequest(
 	val nama : String,
 	val alamat : String,
 	val email : String,
-	val no_telp : String
+	val no_telp : String,
 )
+
+data class UpdateUserPointRequest(
+    val point: String,
+    val newPoint: Int,
+)
+
+
 
 data class UpdateUserResponse(
 

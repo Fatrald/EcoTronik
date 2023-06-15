@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.ewaste.R
 import com.bangkit.ewaste.data.response.transaksi.TransaksiByIdStatusItem
+import com.bangkit.ewaste.data.response.user.UpdateUserPointRequest
 import com.bangkit.ewaste.ui.admin.AdminViewModel
 import com.bumptech.glide.Glide
 
@@ -19,6 +21,7 @@ class AdminAdapter(private val viewModel : AdminViewModel) : RecyclerView.Adapte
 
     class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         val itemImage : ImageView = itemView.findViewById(R.id.item_image)
+        val itemKode: TextView = itemView.findViewById(R.id.item_kode)
         val itemName: TextView = itemView.findViewById(R.id.item_name)
         val itemCount: TextView = itemView.findViewById(R.id.item_count)
         val btnSubmit : Button = itemView.findViewById(R.id.btn_submit)
@@ -36,6 +39,7 @@ class AdminAdapter(private val viewModel : AdminViewModel) : RecyclerView.Adapte
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val transaksi = listTransaksi[position]
         holder.apply {
+            itemKode.text = transaksi.uuid.takeLast(5)
             itemName.text = transaksi.jenisElektronik
             itemCount.text = "${transaksi.jmlh} perangkat"
             Glide.with(itemView)
@@ -44,6 +48,15 @@ class AdminAdapter(private val viewModel : AdminViewModel) : RecyclerView.Adapte
                 .error(R.drawable.ic_image) // Optional: image to show if an error occurs
                 .into(itemImage)
             btnSubmit.setOnClickListener {
+                viewModel.getUserByUUID(transaksi.uuidUser)
+                viewModel.user.observe(holder.itemView.context as LifecycleOwner){user ->
+                    var newPoint = user.jmlPoint + transaksi.point
+                    var updatePointUser = UpdateUserPointRequest(
+                        user.uuid,
+                        newPoint
+                    )
+                    viewModel.updatePoint(user.uuid, updatePointUser)
+                }
                 viewModel.updateStatusTransaksi(transaksi.uuid, "selesai")
             }
         }

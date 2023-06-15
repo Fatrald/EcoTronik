@@ -8,13 +8,10 @@
     android:layout_marginTop="@dimen/dimen_10dp"
     android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/item_content"
-            android:layout_width="350dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="@dimen/dimen_10dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -23,7 +20,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
                 android:padding="16dp">
 
                 <ImageView
@@ -37,47 +34,56 @@
                     tools:src="@drawable/ic_image" />
 
                 <TextView
-                    android:id="@+id/item_name"
+                    android:id="@+id/item_kode"
+                    android:layout_marginLeft="@dimen/dimen_10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
                     android:gravity="start"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/item_count"
                     app:layout_constraintStart_toEndOf="@+id/item_image"
-                    app:layout_constraintTop_toTopOf="@+id/item_image"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="UUID" />
+
+                <TextView
+                    android:id="@+id/item_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:layout_marginLeft="@dimen/dimen_10dp"
+
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/item_image"
+                    app:layout_constraintTop_toBottomOf="@+id/item_kode"
                     tools:text="Smartphone" />
 
                 <TextView
                     android:id="@+id/item_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
                     android:gravity="start"
+                    android:layout_marginLeft="@dimen/dimen_10dp"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/item_image"
                     app:layout_constraintStart_toEndOf="@+id/item_image"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/item_name"
                     tools:ignore="MissingConstraints"
                     tools:text="100" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                <Button
+                    android:id="@+id/btn_submit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Submit"
+                    android:textColor="@color/white"
+                    android:layout_marginEnd="@dimen/dimen_10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
-        <Button
-            android:id="@+id/btn_submit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Submit"
-            android:textColor="@color/primary"
-            android:background="@drawable/background_outline_primary"
-            android:layout_marginEnd="@dimen/dimen_10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
