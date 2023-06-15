@@ -25,12 +25,8 @@ class RedeemActivity : AppCompatActivity() {
 
         val uuid = viewModel.getUUID()
         viewModel.getUserByUUID(uuid)
-
         viewModel.user.observe(this){ user ->
             binding.pointValue.text = getString(R.string.point_value, user.jmlPoint.toString())
-        }
-        viewModel.redeemList.observe(this) { redeemList ->
-            adapter.setData(redeemList)
         }
 
     }
