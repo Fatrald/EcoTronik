@@ -24,6 +24,7 @@
         android:id="@+id/rv_transaksi"
         android:layout_width="match_parent"
         android:layout_height="600dp"
+        tools:listitem="@layout/waste_item"
         android:layout_marginHorizontal="@dimen/dimen_10dp"
         android:layout_marginTop="@dimen/dimen_6dp"
         app:layout_constraintStart_toStartOf="parent"

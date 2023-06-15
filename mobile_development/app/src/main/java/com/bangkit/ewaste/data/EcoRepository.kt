@@ -31,6 +31,9 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 
 class EcoRepository(private val context: Context, private val apiService: ApiService) {
+    private val _listTransaksiUser = MutableLiveData<List<TransaksiByIdStatusItem>>()
+    val listTransaksiUser : LiveData<List<TransaksiByIdStatusItem>> get() = _listTransaksiUser
+
     private val _listTransaksiAdmin = MutableLiveData<List<TransaksiByIdStatusItem>>()
     val listTransaksiAdmin : LiveData<List<TransaksiByIdStatusItem>> get() = _listTransaksiAdmin
 

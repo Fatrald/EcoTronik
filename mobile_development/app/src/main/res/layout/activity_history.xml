@@ -6,79 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".ui.history.HistoryActivity">
 
-    <!-- Filter List -->
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <TextView
+        android:id="@+id/label_history"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:layout_height="wrap_content"
+        android:text="Riwayat Transaksi"
+        android:textSize="@dimen/dimen_20dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="0dp">
-
-        <ImageButton
-            android:id="@+id/back_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minWidth="48dp"
-            android:minHeight="48dp"
-            android:padding="8dp"
-            android:src="@drawable/ic_baseline_arrow_back_24" />
-
-        <TextView
-            android:id="@+id/title_history"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/title_history"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
-
-    </androidx.appcompat.widget.Toolbar>
-
-    <Spinner
-        android:id="@+id/filter_spinner"
-        android:layout_width="114dp"
-        android:layout_height="22dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
-        android:spinnerMode="dropdown"
-        android:text="@string/title_history"
-        app:layout_constraintStart_toEndOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
-    <TextView
-        android:id="@+id/emptyTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Belum ada Riwayat Transaksi"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        android:layout_marginTop="@dimen/dimen_32dp"
+        android:layout_marginHorizontal="@dimen/dimen_10dp"
+        android:layout_marginBottom="@dimen/dimen_6dp"/>
 
-    <!-- Transaction List -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_transaction"
-        tools:listitem="@layout/item_history"
+        android:id="@+id/rv_history"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_weight="1"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="600dp"
+        tools:listitem="@layout/item_history"
+        android:layout_marginHorizontal="@dimen/dimen_10dp"
+        android:layout_marginTop="@dimen/dimen_6dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:text="Status :"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@id/label_history"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

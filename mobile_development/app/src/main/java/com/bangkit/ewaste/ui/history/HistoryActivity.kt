@@ -8,80 +8,41 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bangkit.ewaste.adapter.HistoryAdapter
 import com.bangkit.ewaste.databinding.ActivityHistoryBinding
+import com.bangkit.ewaste.ui.admin.AdminViewModel
 import com.bangkit.ewaste.utils.EcoViewModelFactory
 import com.bangkit.ewaste.utils.SharedPreferences
 
 
 class HistoryActivity : AppCompatActivity() {
-    private lateinit var historyViewModel: HistoryViewModel
-    private lateinit var binding: ActivityHistoryBinding
-    private lateinit var emptyTextView: TextView
-    private lateinit var uuid: String
+
+    private var _historyBinding : ActivityHistoryBinding? = null
+    private val binding get() = _historyBinding!!
+
+    private lateinit var viewModel : HistoryViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityHistoryBinding.inflate(layoutInflater)
+        _historyBinding = ActivityHistoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupAction()
-        getUUID()
-        setupSpinner()
-//        getHistory()
-
-    }
-
-    private fun setupSpinner() {
-
-        val options = arrayOf("semua", "menunggu", "selesai") // Replace with your desired options
-        val defaultStatus = "semua"
-        val defaultStatusIndex = options.indexOf(defaultStatus)
-        binding.filterSpinner.setSelection(defaultStatusIndex)
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, options)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.filterSpinner.adapter = adapter
-
-
-        binding.filterSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                val selectedStatus = options[position]
-                historyViewModel.filterTransactionsByStatus(selectedStatus)
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {
-                // Do nothing
-            }
-        }
-
-    }
-
-    private fun setupAction() {
-        val viewModelFactory = EcoViewModelFactory(this)
-        historyViewModel = ViewModelProvider(this, viewModelFactory)[HistoryViewModel::class.java]
-    }
-
-    private fun getUUID() {
-        val sharedPrefs = SharedPreferences.initPreference(this, "localPref")
-        uuid = sharedPrefs.getString("uuid", "") ?: ""
-    }
-
-    private fun getHistory() {
-        emptyTextView= binding.emptyTextView
-        val uuid = historyViewModel.getUUID()
-        historyViewModel.getTransaksiHistory(uuid)
-        historyViewModel.filterTransactionsByStatus("semua")
-        historyViewModel.filteredTransaksi.observe(this) { transactions ->
+        setupViewModel()
+        viewModel.getTransaksiUser()
+        viewModel.listTransaksi.observe(this){ data ->
+            val adapter = HistoryAdapter(data)
             val layoutManager = LinearLayoutManager(this)
-            val adapter = HistoryAdapter(transactions)
-            binding.rvTransaction.layoutManager = layoutManager
-            binding.rvTransaction.adapter = adapter
-
-            if (transactions.isEmpty()) {
-                emptyTextView.visibility = View.VISIBLE
-            } else {
-                emptyTextView.visibility = View.GONE
-            }
+            binding.rvHistory.layoutManager = layoutManager
+            binding.rvHistory.adapter = adapter
         }
+
+
     }
+
+    private fun setupViewModel() {
+        val viewModelFactory = EcoViewModelFactory(this)
+        viewModel = ViewModelProvider(this, viewModelFactory)[HistoryViewModel::class.java]
+    }
+
 
 }
