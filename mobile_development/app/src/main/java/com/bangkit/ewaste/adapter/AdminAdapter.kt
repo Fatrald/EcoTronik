@@ -10,16 +10,17 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.ewaste.R
 import com.bangkit.ewaste.data.response.transaksi.TransaksiByIdStatusItem
+import com.bangkit.ewaste.ui.admin.AdminViewModel
 import com.bumptech.glide.Glide
 
-class FormAdapter : RecyclerView.Adapter<FormAdapter.ViewHolder>() {
+class AdminAdapter(private val viewModel : AdminViewModel) : RecyclerView.Adapter<AdminAdapter.ViewHolder>() {
 
-    private var listTransaksi: MutableList<TransaksiByIdStatusItem> = mutableListOf()
+    private var listTransaksi : MutableList<TransaksiByIdStatusItem> = mutableListOf()
 
     class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
+        val itemImage : ImageView = itemView.findViewById(R.id.item_image)
         val itemName: TextView = itemView.findViewById(R.id.item_name)
         val itemCount: TextView = itemView.findViewById(R.id.item_count)
-        val itemImage : ImageView = itemView.findViewById(R.id.item_image)
         val btnSubmit : Button = itemView.findViewById(R.id.btn_submit)
     }
 
@@ -32,13 +33,6 @@ class FormAdapter : RecyclerView.Adapter<FormAdapter.ViewHolder>() {
         return listTransaksi.size
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun setData(newData: List<TransaksiByIdStatusItem>) {
-        listTransaksi.clear()
-        listTransaksi.addAll(newData)
-        notifyDataSetChanged()
-    }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val transaksi = listTransaksi[position]
         holder.apply {
@@ -49,6 +43,16 @@ class FormAdapter : RecyclerView.Adapter<FormAdapter.ViewHolder>() {
                 .placeholder(R.drawable.ic_image) // Optional: placeholder image while loading
                 .error(R.drawable.ic_image) // Optional: image to show if an error occurs
                 .into(itemImage)
+            btnSubmit.setOnClickListener {
+                viewModel.updateStatusTransaksi(transaksi.uuid, "selesai")
+            }
         }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setData(newData: List<TransaksiByIdStatusItem>) {
+        listTransaksi.clear()
+        listTransaksi.addAll(newData)
+        notifyDataSetChanged()
     }
 }

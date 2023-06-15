@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.bangkit.ewaste.di.Injection
+import com.bangkit.ewaste.ui.admin.AdminViewModel
 import com.bangkit.ewaste.ui.customviews.ManualFragmentViewModel
 import com.bangkit.ewaste.ui.history.HistoryViewModel
 import com.bangkit.ewaste.ui.form.FormActivityViewModel
@@ -43,6 +44,9 @@ class EcoViewModelFactory(private val context : Context) : ViewModelProvider.Fac
             }
             modelClass.isAssignableFrom(PostWasteViewModel::class.java) -> {
                 PostWasteViewModel(Injection.modelRepository(context)) as T
+            }
+            modelClass.isAssignableFrom(AdminViewModel::class.java) -> {
+                AdminViewModel(Injection.provideRepository(context)) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel Class")
         }

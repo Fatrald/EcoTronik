@@ -31,6 +31,9 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 
 class EcoRepository(private val context: Context, private val apiService: ApiService) {
+    private val _listTransaksiAdmin = MutableLiveData<List<TransaksiByIdStatusItem>>()
+    val listTransaksiAdmin : LiveData<List<TransaksiByIdStatusItem>> get() = _listTransaksiAdmin
+
     private val _user = MutableLiveData<TransactionResponse>()
     val user : LiveData<TransactionResponse> get() = _user
 
@@ -357,6 +360,26 @@ class EcoRepository(private val context: Context, private val apiService: ApiSer
 
     fun upload(image : File){
 
+    }
+
+    fun getTransaksiAdmin(status: String) {
+        val call = apiService.getTransaksiAdmin(status)
+        call.enqueue(object : Callback<List<TransaksiByIdStatusItem>>{
+            override fun onResponse(
+                call: Call<List<TransaksiByIdStatusItem>>,
+                response: Response<List<TransaksiByIdStatusItem>>
+            ) {
+                if (response.isSuccessful){
+                    _listTransaksiAdmin.value = response.body()
+                } else {
+                    Log.e("getTransaksiByStatus", "failed : ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<List<TransaksiByIdStatusItem>>, t: Throwable) {
+                context.showToast("Data Gagal Dimuat, Periksa Koneksi Anda")
+            }
+        })
     }
 
 }

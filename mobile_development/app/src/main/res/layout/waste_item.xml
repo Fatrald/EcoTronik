@@ -67,12 +67,13 @@
 
         </androidx.cardview.widget.CardView>
 
-        <ImageButton
-            android:id="@+id/btn_trash"
+        <Button
+            android:id="@+id/btn_submit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_trash"
-            android:background="@drawable/background_circle_white"
+            android:text="Submit"
+            android:textColor="@color/primary"
+            android:background="@drawable/background_outline_primary"
             android:layout_marginEnd="@dimen/dimen_10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

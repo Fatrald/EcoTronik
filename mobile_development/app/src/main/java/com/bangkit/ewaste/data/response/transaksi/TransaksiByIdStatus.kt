@@ -26,5 +26,8 @@ data class TransaksiByIdStatusItem(
 	val jmlh: Int,
 
 	@field:SerializedName("status")
-	val status: String
+	val status: String,
+
+	@field:SerializedName("photoUrl")
+	val path : String,
 )

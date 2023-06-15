@@ -85,5 +85,10 @@ interface ApiService {
         @Body request: TransaksiByImageRequest
     ): Call<UpdateTransaksiResponse>
 
+    @GET("admin/{status}")
+    fun getTransaksiAdmin(
+        @Path("status") status: String
+    ) : Call<List<TransaksiByIdStatusItem>>
+
 }
 

@@ -11,6 +11,38 @@ export const getTransaksi = async (req, res) => {
   }
 };
 
+export const getTransaksiAdmin = async (req, res) => {
+  try {
+    const result = [];
+    const transaksi = await Transaksi.findAll({
+      where: {
+        status: req.params.status,
+      },
+    });
+    for (const data of transaksi) {
+      const elektronik = await Elektronik.findOne({
+        where: {
+          id: data.elektronikId,
+        },
+      });
+      const point = elektronik.point * data.jmlh;
+
+      result.push({
+        uuid: data.uuid_trx,
+        status: data.status,
+        createdAt: data.createdAt,
+        jenis_elektronik: elektronik.jenis_elektronik,
+        point: point,
+        jmlh: data.jmlh,
+        photoUrl: data.path,
+      });
+    }
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json({ error: "internal server error" });
+  }
+};
+
 export const getTransaksiByUserId = async (req, res) => {
   const user = await Users.findOne({
     where: { uuid: req.params.uuid },

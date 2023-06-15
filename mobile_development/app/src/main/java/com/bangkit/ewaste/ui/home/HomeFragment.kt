@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bangkit.ewaste.R
 import com.bangkit.ewaste.databinding.FragmentHomeBinding
+import com.bangkit.ewaste.ui.admin.AdminActivity
 import com.bangkit.ewaste.ui.customviews.CustomDialogFragment
 import com.bangkit.ewaste.ui.edutron.EduTronActivity
 import com.bangkit.ewaste.ui.form.FormActivity
@@ -54,8 +55,7 @@ class HomeFragment : Fragment() {
                     labelBtnAdmin.visibility = View.VISIBLE
 
                     btnAdmin.setOnClickListener {
-//                        val intent = Intent(requireContext(), AdminActivity::class.java)
-//                        startActivity(intent)
+                        startActivity(Intent(requireContext(), AdminActivity::class.java))
                     }
                 }
             }
