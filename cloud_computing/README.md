@@ -17,4 +17,7 @@ ENDPOINT |    METHOD    | Body Sent (JSON) | Description,
 /users   |POST    |Nama, Email & Password|Registration for user|
 /users   |PATCH   |Nama, Alamat, Email, profile_image & no.telp | Update data for user|
 /logout  |DELETE  | None | Logout four user|
-/elektronik/:id |GET | None | Give the response about elektronik use id elektronik|
+/elektronik/id |GET | None | Give the response about elektronik using id elektronik|
+/transaksi | POST | Status, Jumlah, userId (FK), elektronikId (FK) | Create transaction for user |
+/transaksi/uuid | GET | None | Give the response about transaksi using user id |
+/transaksi/uuid/status | GET | None | Give the response about transaksi using status from user id|
