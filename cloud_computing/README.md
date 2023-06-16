@@ -23,7 +23,14 @@ ENDPOINT |    METHOD    | Body Sent (JSON) | Description,
 /elektronik/:id |GET | None | Give the response about elektronik use id elektronik|
 
 ## How to Deploy API Backend using App Engine (GCP)
-1. Push the Backend API that you have created into your GitHub repository
-2. Clone the GitHub repository which contains your Backend API in the terminal with the statement `git clone <your repository link>` then click enter
-3. Affter success, run the `gcloud app deploy` statement to start the deployment process
-4. After the deployment process is complete, you can run the `gcloud app browse` statement to get the link from your deployment results earlier
+1. Push the Backend API that you have created into your GitHub repository.
+2. Clone the GitHub repository which contains your Backend API in the terminal with the statement `git clone <your repository link>` then click enter.
+3. Affter success, run the `gcloud app deploy` statement to start the deployment process.
+4. After the deployment process is complete, you can run the `gcloud app browse` statement to get the link from your deployment results earlier.
+
+## How to Deploy Datasets and Model with flask using Cloud Run and Cloud Storage (GCP)
+1. Upload the datasets that you have created into Google Cloud Storage (Bucket).
+2. Create Flask API and deployed it on Google Cloud run.
+3. Upload the model using Docker File into Container Registery .
+4. Deployed it in Cloud Run, Create service and fill all of the conditions and adjust the port with the port in the docker file.
+   
