@@ -34,4 +34,4 @@ MobileNetV2 is a convolutional neural network (CNN) architecture that was introd
 We utilized the MobileNetV2 pre-trained model to extract some feautures as it's mentioned above, then fine-tuned the model with adding the CNN layers above and below it. The testing phase resulted in an accuracy of 89.72% for the trained model. Please refer to <a href="https://github.com/Fatrald/EcoTronik/blob/main/machine_learning/EcoTronik_final.ipynb">this</a> link to view the complete steps and result.
 
 ## The Machine Learning Model App
-We utilized the Hugging Face Platform to develop our machine learning model app. Please refer to <a href="https://huggingface.co/spaces/baghas26/ecotronik-new">this</a> link if you want to view and try the result of Gradio App.
+We utilized the Hugging Face Platform to develop our machine learning model app. Please refer to <a href="https://huggingface.co/spaces/baghas26/ecotronik">this</a> link if you want to view and try the result of Gradio App.
