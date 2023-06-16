@@ -11,9 +11,11 @@ Mobile development plays a crucial role in the creation and implementation of th
 7. Profile page that contains all of the informations about user, such as name, email address, address, profil picture, and log out button
 8. History page for a list of transactions the user has made
 9. The redeem point page contains a list of vouchers that users can claim using the points they have
+10. EduTron page contains an article about electronic waste
 
 ### Features
-1. Scanning with camera or from gallery to identify the type of electronic waste
+1. Scanning with a camera or from a gallery to identify the type of electronic waste
 2. Form feature to input electronic waste manually without scanning the garbage
 3. Filter status on page history to see pending, successful, or failed transaction status
-4. Make changes to the contents of the personal profile on the profile page
+4. EduTron feature provides several articles to increase the knowledge about electronic waste
+5. Make changes to the contents of the personal profile on the profile page
