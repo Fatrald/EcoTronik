@@ -7,7 +7,7 @@ As machine learning engineers, our primary role was on developing a model using 
 * Create and Training model using MobileNetv2 and some additional layers.
 * Saved the best model (h5).
 * Predict some images with the best model.
-* Deploy ML Gradio App on Hugging Face Spaces.
+* Deploy ML Model using Flask.
 * Create a dockerfile for deployment.
 
 ## Collecting the dataset
